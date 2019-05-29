@@ -38,6 +38,7 @@ public class GroupController {
         return food;
     }
 
+    @RequestMapping(method = RequestMethod.PUT, value = "updateGroup", consumes = APPLICATION_JSON_VALUE)
     public GroupDto updateGroup(GroupDto groupDto){
         return clothes;
     }
