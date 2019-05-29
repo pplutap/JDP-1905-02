@@ -1,10 +1,7 @@
 package com.kodilla.ecommercee;
 
 import com.kodilla.ecommercee.domain.ProductDto;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,15 +25,17 @@ public class ProductController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createProduct", consumes = APPLICATION_JSON_VALUE)
-    public void createProduct(ProductDto productDto){
+    public void createProduct(@RequestBody ProductDto productDto){
 
     }
 
-    public ProductDto updateProduct(ProductDto productDto){
+    @RequestMapping(method = RequestMethod.PUT, value = "updateProduct", consumes = APPLICATION_JSON_VALUE)
+    public ProductDto updateProduct(@RequestBody ProductDto productDto){
         return new ProductDto(1L, "Edited test title", "Edited or not test description.",0.99);
     }
 
-    public void deleteProduct(Long productId){
+    @RequestMapping(method = RequestMethod.DELETE, value = "deleteProduct")
+    public void deleteProduct(Long productId) throws ProductNotFoundException{
 
     }
 }
