@@ -8,11 +8,12 @@ public class GroupDto {
     private String description;
     private List<ProductDto> products;
 
-    public GroupDto(Long id, String name, String description, List<ProductDto> products) {
-        this.id = id;
+    public GroupDto(String name, String description) {
         this.name = name;
         this.description = description;
-        this.products = products;
+    }
+
+    public GroupDto() {
     }
 
     public Long getId() {
