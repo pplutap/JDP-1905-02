@@ -1,7 +1,6 @@
 package com.kodilla.ecommercee;
 
 import com.kodilla.ecommercee.domain.GroupDto;
-import com.kodilla.ecommercee.domain.ProductDto;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,12 +15,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping("/superShop")
 public class GroupController {
-    private static final ProductDto butter = new ProductDto(1L,"SuperButter", "Super Fat Butter.", 3.99, 1L);
-    private static final ProductDto meal = new ProductDto(2L, "Mega Meal", "Epic meal moment.",8.99, 1L);
-    private static final ProductDto socks = new ProductDto(3L, "Sport socks", "Most breathable fabric.",9.99, 2L);
-    private static final ProductDto tshirt = new ProductDto(4L, "UV T-Shirt", "100% UV protection", 29.99, 2L);
-    private static final GroupDto food = new GroupDto(1L, "Food", "Food of various types.", Arrays.asList(butter,meal));
-    private static final GroupDto clothes = new GroupDto(2L, "Clothes", "Summer clothing", Arrays.asList(socks,tshirt));
+    private static final GroupDto food = new GroupDto(1L, "Food");
+    private static final GroupDto clothes = new GroupDto(2L, "Clothes");
 
     @RequestMapping(method = RequestMethod.GET, value = "getGroups")
     public List<GroupDto> getGroups(){
