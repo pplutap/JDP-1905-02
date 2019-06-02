@@ -9,6 +9,9 @@ public class GroupDto {
         this.name = name;
     }
 
+    public GroupDto() {
+    }
+
     public Long getId() {
         return id;
     }
