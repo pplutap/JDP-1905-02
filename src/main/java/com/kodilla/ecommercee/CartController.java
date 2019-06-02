@@ -27,12 +27,12 @@ public class CartController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "addProductsToTheCartSelectedById", consumes = APPLICATION_JSON_VALUE)
-    public void addProductsToTheCartSelectedById(RequestBody CartProductAdderDto cartProductAdderDto){
+    public void addProductsToTheCartSelectedById(@RequestBody CartProductAdderDto cartProductAdderDto){
 
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteProductByIdInGivenCardById", consumes = APPLICATION_JSON_VALUE)
-    public void deleteProductByIdInGivenCardById(RequestBody CartProductDeleterDto cartProductDeleterDto){
+    public void deleteProductByIdInGivenCardById(@RequestBody CartProductDeleterDto cartProductDeleterDto){
 
     }
 
