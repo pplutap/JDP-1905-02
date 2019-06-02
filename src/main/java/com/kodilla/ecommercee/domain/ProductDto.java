@@ -5,12 +5,14 @@ public class ProductDto {
     private String name;
     private String description;
     private double price;
+    private Long groupId;
 
-    public ProductDto(Long id, String name, String description, double price) {
+    public ProductDto(Long id, String name, String description, double price, Long groupId) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
+        this.groupId = groupId;
     }
 
     public Long getId() {
@@ -27,5 +29,9 @@ public class ProductDto {
 
     public double getPrice() {
         return price;
+    }
+
+    public Long getGroupId() {
+        return groupId;
     }
 }
