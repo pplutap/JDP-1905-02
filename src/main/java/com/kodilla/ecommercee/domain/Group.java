@@ -17,8 +17,8 @@ public class Group {
 
     private String name;
 
-/*    @OneToMany(targetEntity = Product.class, mappedBy = "group", fetch=FetchType.LAZY)
-    private List<Product> products = new ArrayList<>();*/
+    @OneToMany(targetEntity = Product.class, mappedBy = "group", fetch=FetchType.LAZY)
+    private List<Product> products = new ArrayList<>();
 
     public Group(String name) {
         this.name = name;
@@ -35,8 +35,8 @@ public class Group {
         return name;
     }
 
-/*    public List<Product> getProducts() {
+    public List<Product> getProducts() {
         return products;
-    }*/
+    }
 
 }
