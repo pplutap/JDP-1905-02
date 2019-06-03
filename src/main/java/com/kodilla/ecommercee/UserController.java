@@ -21,7 +21,6 @@ public class UserController {
     private Integer c = fourRandomNumbersGenerator.nextInt(9);
     private Integer d = fourRandomNumbersGenerator.nextInt(9);
 
-
     @RequestMapping(method = RequestMethod.POST,value = "createUser",consumes = APPLICATION_JSON_VALUE)
     public UserDto createUser(@RequestBody UserDto userDto){
         return new UserDto(1L,"testUser",true,null);
