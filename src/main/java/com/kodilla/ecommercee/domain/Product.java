@@ -1,8 +1,6 @@
 package com.kodilla.ecommercee.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -14,6 +12,10 @@ public class Product {
     private String name;
     private String description;
     private double price;
+
+    @ManyToOne
+    @JoinColumn(name = "GROUP_ID")
+    private Group group;
 
     public Product(){}
 
@@ -38,5 +40,9 @@ public class Product {
 
     public double getPrice() {
         return price;
+    }
+
+    public Group getGroup() {
+        return group;
     }
 }
