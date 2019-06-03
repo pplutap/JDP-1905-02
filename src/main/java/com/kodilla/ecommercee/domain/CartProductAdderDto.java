@@ -6,6 +6,8 @@ public class CartProductAdderDto {
     private Long cartId;
     private List<Product> products;
 
+    public CartProductAdderDto(){}
+
     public CartProductAdderDto(Long cartId, List<Product> products) {
         this.cartId = cartId;
         this.products = products;

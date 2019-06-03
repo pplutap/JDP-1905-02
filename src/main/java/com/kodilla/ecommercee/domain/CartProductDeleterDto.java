@@ -4,6 +4,8 @@ public class CartProductDeleterDto {
     private Long cartId;
     private Long productId;
 
+    public CartProductDeleterDto(){}
+
     public CartProductDeleterDto(Long cartId, Long productId) {
         this.cartId = cartId;
         this.productId = productId;
