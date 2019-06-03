@@ -12,9 +12,9 @@ public class OrderDto {
     private boolean realised;
     private List<ProductDto> products;
 
-    public OrderDto(Long id, int yearOfOrder,int monthOfOrder,int dayOfOrder, boolean paid, boolean realised, List<ProductDto> products) {
+    public OrderDto(Long id, int yearOfOrder, int monthOfOrder, int dayOfOrder, boolean paid, boolean realised, List<ProductDto> products) {
         Id = id;
-        this.created = LocalDate.of(yearOfOrder,monthOfOrder,dayOfOrder);
+        this.created = LocalDate.of(yearOfOrder, monthOfOrder, dayOfOrder);
         this.paid = paid;
         this.realised = realised;
         this.products = products;
