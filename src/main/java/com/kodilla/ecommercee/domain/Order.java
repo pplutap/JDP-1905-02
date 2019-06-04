@@ -5,6 +5,8 @@ import org.apache.catalina.User;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Order {
@@ -14,8 +16,8 @@ public class Order {
     @Column(name="ID", unique = true)
     private Long id;
 
-    //@ManyToOne
-    //@JoinColumn(name = "USER_ID")
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
     private User user;
 
     //@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -25,11 +27,10 @@ public class Order {
 
     public Order(){}
 
-    public Order(Long id, User user, /*Cart cart,*/ List<LocalDate> updates) {
-        this.id = id;
+    public Order(User user/*,Cart cart*/) {
         this.user = user;
         //this.cart = cart;
-        this.updates = updates;
+        this.updates = new ArrayList<>(Arrays.asList(LocalDate.now()));
     }
 
     public Long getId() {
