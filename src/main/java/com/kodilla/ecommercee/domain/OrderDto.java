@@ -20,6 +20,9 @@ public class OrderDto {
         this.products = products;
     }
 
+    public OrderDto() {
+    }
+
     public Long getId() {
         return Id;
     }
