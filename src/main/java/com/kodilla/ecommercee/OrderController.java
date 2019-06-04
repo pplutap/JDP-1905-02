@@ -11,10 +11,11 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping("/superShop")
 public class OrderController {
-    private static final ProductDto butter = new ProductDto(1L, "SuperButter", "Super Fat Butter.", 3.99);
-    private static final ProductDto meal = new ProductDto(2L, "Mega Meal", "Epic meal moment.", 8.99);
-    private static final ProductDto socks = new ProductDto(3L, "Sport socks", "Most breathable fabric.", 9.99);
-    private static final ProductDto tshirt = new ProductDto(4L, "UV T-Shirt", "100% UV protection", 29.99);
+
+    private static final ProductDto butter = new ProductDto(1L, "SuperButter", "Super Fat Butter.", 3.99, 1L);
+    private static final ProductDto meal = new ProductDto(2L, "Mega Meal", "Epic meal moment.", 8.99, 1L);
+    private static final ProductDto socks = new ProductDto(3L, "Sport socks", "Most breathable fabric.", 9.99, 2L);
+    private static final ProductDto tshirt = new ProductDto(4L, "UV T-Shirt", "100% UV protection", 29.99, 2L);
     private static final OrderDto firstOrder = new OrderDto(1L, 2019, 05, 28, true, false, Arrays.asList(butter, meal));
     private static final OrderDto secondOrder = new OrderDto(2L, 2019, 05, 31, false, false, Arrays.asList(socks, tshirt));
 
