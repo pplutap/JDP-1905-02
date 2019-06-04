@@ -23,7 +23,7 @@ public class User {
     public User(String username, Long userKey) {
         this.username = username;
         this.userKey = userKey;
-        status = false;
+        this.status = false;
     }
 
     public Long getId() {
