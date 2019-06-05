@@ -1,36 +1,40 @@
 package com.kodilla.ecommercee.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDto {
     private Long id;
-    private String userName;
-    private boolean isActive;
-    private String generatedKey;
+    private String username;
+    private String status;
+    private String userKey;
+
+    @JsonIgnore
     private List<OrderDto> orders = new ArrayList<>();
 
-    public UserDto(Long id, String userName, boolean isActive, String generatedKey) {
+    public UserDto(Long id, String username, String status, String userKey) {
         this.id = id;
-        this.userName = userName;
-        this.isActive = isActive;
-        this.generatedKey = generatedKey;
+        this.username = username;
+        this.status = status;
+        this.userKey = userKey;
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public boolean isActive() {
-        return isActive;
+    public String getStatus() {
+        return status;
     }
 
-    public String getGeneratedKey() {
-        return generatedKey;
+    public String getUserKey() {
+        return userKey;
     }
 
     public List<OrderDto> getOrders() {
