@@ -17,6 +17,9 @@ public class UserDto {
         this.generatedKey = generatedKey;
     }
 
+    public UserDto() {
+    }
+
     public Long getId() {
         return id;
     }
