@@ -26,7 +26,7 @@ public class OrderController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createOrder", consumes = APPLICATION_JSON_VALUE)
-    public void createOrder(OrderDto orderDto) {
+    public void createOrder() {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getOrder")
