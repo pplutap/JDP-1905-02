@@ -1,6 +1,8 @@
 package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.domain.UserDto;
+import com.kodilla.ecommercee.service.DbService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Random;
@@ -10,12 +12,9 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping("/superShop")
 public class UserController {
-    private Random fiveRandomNumbersGenerator = new Random();
-    private Integer a = fiveRandomNumbersGenerator.nextInt(9);
-    private Integer b = fiveRandomNumbersGenerator.nextInt(9);
-    private Integer c = fiveRandomNumbersGenerator.nextInt(9);
-    private Integer d = fiveRandomNumbersGenerator.nextInt(9);
-    private Integer e = fiveRandomNumbersGenerator.nextInt(9);
+
+    @Autowired
+    private DbService dbService;
 
     @RequestMapping(method = RequestMethod.POST, value = "createUser", consumes = APPLICATION_JSON_VALUE)
     public UserDto createUser(@RequestBody UserDto userDto) {
@@ -27,10 +26,9 @@ public class UserController {
         return new UserDto(1L, "testUser", "0", null);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "generatingKeyOfFiveNumbersValidForOneHour")
+    @RequestMapping(method = RequestMethod.PUT, value = "generateUserKey")
     public UserDto generatingKeyOfFourNumbersValidForOneHour(@RequestParam Long userId) {
-        return new UserDto(1L, "testUser", "1" , a.toString() + b.toString() +
-                c.toString() + d.toString() + e.toString());
+        return new UserDto(1L, "testUser", "1" , dbService.generateRandomKey());
     }
 
 }
