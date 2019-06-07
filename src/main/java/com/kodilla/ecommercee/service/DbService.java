@@ -9,9 +9,10 @@ import java.util.Random;
 @Service
 public class DbService {
 
+    private Random randomGenerator = new Random();
+
     public String generateRandomKey(){
 
-        Random randomGenerator = new Random();
         int keySize = 5;
         String key = "";
 
