@@ -2,10 +2,7 @@ package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.GroupNotFoundException;
 import com.kodilla.ecommercee.domain.GroupDto;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,7 +22,7 @@ public class GroupController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createGroup", consumes = APPLICATION_JSON_VALUE)
-    public void createGroup(GroupDto groupDto){
+    public void createGroup(@RequestBody GroupDto groupDto){
 
     }
 
@@ -35,7 +32,7 @@ public class GroupController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateGroup", consumes = APPLICATION_JSON_VALUE)
-    public GroupDto updateGroup(GroupDto groupDto){
+    public GroupDto updateGroup(@RequestBody GroupDto groupDto){
         return clothes;
     }
 }
