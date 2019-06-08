@@ -71,10 +71,11 @@ public class GroupCrudTestSuite {
         genericEntityRepository.save(groupAgd);
         genericEntityRepository.save(groupFood);
         genericEntityRepository.save(groupClothes);
+        Long recordCount = genericEntityRepository.count();
 
         //Then
         genericEntityRepository.delete(groupAgd);
-        Assert.assertEquals(2, genericEntityRepository.count());
+        Assert.assertEquals(recordCount-1, genericEntityRepository.count());
 
         //CleanUp
         genericEntityRepository.delete(groupFood);
