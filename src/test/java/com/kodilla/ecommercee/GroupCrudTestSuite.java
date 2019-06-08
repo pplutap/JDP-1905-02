@@ -35,8 +35,6 @@ public class GroupCrudTestSuite {
         Group groupById = (Group) genericEntityRepository.getOne(id);
         Assert.assertEquals("Drobne AGD", groupById.getName());
 
-        //CleanUp
-        genericEntityRepository.delete(group);
     }
 
     @Test
@@ -53,8 +51,6 @@ public class GroupCrudTestSuite {
         Group groupById = (Group) genericEntityRepository.getOne(id);
         Assert.assertEquals("Ubrania", groupById.getName());
 
-        //CleanUp
-        genericEntityRepository.deleteById(id);
     }
 
 
@@ -75,8 +71,5 @@ public class GroupCrudTestSuite {
         genericEntityRepository.delete(groupAgd);
         Assert.assertEquals(recordCount-1, genericEntityRepository.count());
 
-        //CleanUp
-        genericEntityRepository.delete(groupFood);
-        genericEntityRepository.delete(groupClothes);
-    }
+     }
 }
