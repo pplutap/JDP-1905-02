@@ -28,7 +28,7 @@ public class GroupCrudTestSuite {
         Group group = new Group(GROUP_NAME_AGD);
 
         //When
-       genericEntityRepository.save(group);
+        genericEntityRepository.save(group);
 
         //Then
         Long id = group.getId();
@@ -77,9 +77,6 @@ public class GroupCrudTestSuite {
 
         //CleanUp
         genericEntityRepository.delete(groupFood);
+        genericEntityRepository.delete(groupClothes);
     }
-
-
-
-
 }
