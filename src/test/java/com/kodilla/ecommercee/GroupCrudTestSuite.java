@@ -12,6 +12,7 @@ import javax.transaction.Transactional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Transactional
 public class GroupCrudTestSuite {
 
     private static final String GROUP_NAME_AGD = "Drobne AGD";
@@ -22,7 +23,6 @@ public class GroupCrudTestSuite {
     private GenericEntityRepository genericEntityRepository;
 
     @Test
-    @Transactional
     public void testGroupSave() {
         //Given
         Group group = new Group(GROUP_NAME_AGD);
@@ -40,7 +40,6 @@ public class GroupCrudTestSuite {
     }
 
     @Test
-    @Transactional
     public void testGroupUpdate() {
         //Given
         Group group = new Group(GROUP_NAME_AGD);
@@ -60,8 +59,7 @@ public class GroupCrudTestSuite {
 
 
     @Test
-    @Transactional
-    public void testGroupDeleteOne() {
+     public void testGroupDeleteOne() {
         //Given
         Group groupAgd = new Group(GROUP_NAME_AGD);
         Group groupFood = new Group(GROUP_NAME_FOOD);
@@ -81,24 +79,7 @@ public class GroupCrudTestSuite {
         genericEntityRepository.delete(groupFood);
     }
 
-    @Test
-    @Transactional
-    public void testGroupDeleteAll() {
-        //Given
-        Group groupAgd = new Group(GROUP_NAME_AGD);
-        Group groupFood = new Group(GROUP_NAME_FOOD);
-        Group groupClothes= new Group(GROUP_NAME_CLOTHES);
 
-        //When
-        genericEntityRepository.save(groupAgd);
-        genericEntityRepository.save(groupFood);
-        genericEntityRepository.save(groupClothes);
-
-        //Then
-        genericEntityRepository.deleteAll();
-        Assert.assertEquals(0, genericEntityRepository.count());
-
-    }
 
 
 }
