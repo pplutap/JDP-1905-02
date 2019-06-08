@@ -16,7 +16,7 @@ public class Product extends GenericEntity {
     private String description;
     private double price;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "GROUP_ID")
     private Group group;
 

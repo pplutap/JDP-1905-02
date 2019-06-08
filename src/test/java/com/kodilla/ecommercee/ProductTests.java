@@ -73,12 +73,13 @@ public class ProductTests {
         genericEntityRepository.save(product3);
 
         //When
+        long productCounterBeforeDeletion = genericEntityRepository.count();
         genericEntityRepository.delete(product1);
         long productCounter = genericEntityRepository.count();
 
 
         //Then
-        Assert.assertEquals(2L, productCounter);
+        Assert.assertEquals(productCounterBeforeDeletion-1, productCounter);
 
         //CleanUp
         genericEntityRepository.delete(product2);
@@ -115,6 +116,7 @@ public class ProductTests {
         Product product1 = new Product("Altana SunSet", "Altana ogrodowa ...", 999.90);
         Product product2 = new Product("Krzesło Romea", "Krzesło składane z drewna ...", 66.90);
         Product product3 = new Product("Wkrętarka udarowa", "Wkrętarka marki Hilti ...", 3980.90);
+        int productCounterBeforeSave = genericEntityRepository.findAll().size();
         genericEntityRepository.save(product1);
         genericEntityRepository.save(product2);
         genericEntityRepository.save(product3);
@@ -123,7 +125,7 @@ public class ProductTests {
         int productCounter = genericEntityRepository.findAll().size();
 
         //Then
-        Assert.assertEquals(3, productCounter);
+        Assert.assertEquals(productCounterBeforeSave + 3, productCounter);
 
         //CleanUp
         genericEntityRepository.delete(product1);
