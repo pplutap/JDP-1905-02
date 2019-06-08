@@ -30,8 +30,7 @@ public class Cart {
     public Cart() {
     }
 
-    public Cart(Order order, List<Product> products) {
-        //this.order = order;
+    public Cart(List<Product> products) {
         //this.products = new ArrayList<>();
     }
 
