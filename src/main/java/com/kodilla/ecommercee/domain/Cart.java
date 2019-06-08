@@ -12,10 +12,8 @@ public class Cart {
     @NotNull
     @GeneratedValue
     @Column(name= "CART_ID", unique = true)
-    private Long id;
-    private String name;
-    private String description;
-    private double price;
+    private Long cartId;
+
 
     //@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     //@JoinColumn(name = "ORDER_ID")
@@ -33,27 +31,12 @@ public class Cart {
     }
 
     public Cart(Order order, List<Product> products) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
         //this.order = order;
         //this.products = new ArrayList<>();
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public double getPrice() {
-        return price;
+    public Long getCartId() {
+        return cartId;
     }
 
     //public Order getOrder() {
