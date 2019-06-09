@@ -7,7 +7,7 @@ import java.util.Random;
 
 @Transactional
 @Service
-public class DbService {
+public class TokenService {
 
     private Random randomGenerator = new Random();
 
