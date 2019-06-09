@@ -27,14 +27,11 @@ public class ProductTests {
 
         //When
         genericEntityRepository.save(product);
-
-        //Then
         Long id = product.getId();
         Product foundProduct = (Product) genericEntityRepository.getOne(id);
-        Assert.assertNotEquals(null, foundProduct);
 
-        //CleanUp
-        genericEntityRepository.deleteById(id);
+        //Then
+        Assert.assertNotEquals(null, foundProduct);
 
     }
 
@@ -44,20 +41,18 @@ public class ProductTests {
         //Given
         Product product = new Product("Altana SunSet", "Altana ogrodowa ...", 999.90);
         genericEntityRepository.save(product);
-
-        //When
         Long id = product.getId();
         Product productToUpdate = (Product) genericEntityRepository.getOne(id);
+
+        //When
         productToUpdate.setPrice(1000.73);
         genericEntityRepository.save(productToUpdate);
 
-        //Then
         productToUpdate = (Product) genericEntityRepository.getOne(id);
         double updatedPrice = productToUpdate.getPrice();
-        Assert.assertEquals(1000.73, updatedPrice, 0.00);
 
-        //CleanUp
-        genericEntityRepository.deleteById(id);
+        //Then
+        Assert.assertEquals(1000.73, updatedPrice, 0.00);
 
     }
 
@@ -80,10 +75,6 @@ public class ProductTests {
 
         //Then
         Assert.assertEquals(productCounterBeforeDeletion-1, productCounter);
-
-        //CleanUp
-        genericEntityRepository.delete(product2);
-        genericEntityRepository.delete(product3);
     }
 
     @Test
@@ -105,8 +96,6 @@ public class ProductTests {
         Assert.assertEquals("Altana SunSet", productName);
         Assert.assertEquals(999.90, productPrice, 0.00);
 
-        //CleanUp
-        genericEntityRepository.deleteById(id);
     }
 
     @Test
@@ -127,10 +116,6 @@ public class ProductTests {
         //Then
         Assert.assertEquals(productCounterBeforeSave + 3, productCounter);
 
-        //CleanUp
-        genericEntityRepository.delete(product1);
-        genericEntityRepository.delete(product2);
-        genericEntityRepository.delete(product3);
     }
 
 }
