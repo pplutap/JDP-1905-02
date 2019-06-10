@@ -1,26 +1,28 @@
 package com.kodilla.ecommercee.domain;
 
+import com.kodilla.ecommercee.GenericEntity;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Product {
+public class Product extends GenericEntity {
     @Id
     @NotNull
     @Column(name="ID", unique = true)
+    @GeneratedValue
     private Long id;
     private String name;
     private String description;
     private double price;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "GROUP_ID")
     private Group group;
 
     public Product(){}
 
-    public Product(Long id, String name, String description, double price) {
-        this.id = id;
+    public Product(String name, String description, double price) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -44,5 +46,9 @@ public class Product {
 
     public Group getGroup() {
         return group;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }
