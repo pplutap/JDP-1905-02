@@ -1,14 +1,10 @@
 package com.kodilla.ecommercee.domain;
 
-import org.apache.catalina.User;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
+@Entity
+@Table(name = "TABLE_OF_ORDERS")
 public class Order {
     @Id
     @GeneratedValue
@@ -16,21 +12,22 @@ public class Order {
     @Column(name="ID", unique = true)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    //@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    //@JoinColumn(name = "CART_ID")
-    //private Cart cart;
-    private List<LocalDate> updates;
+    @OneToOne(cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,
+            targetEntity = Cart.class,
+            mappedBy = "order")
+    @JoinColumn(name = "CART_ID")
+    private Cart cart;
 
     public Order(){}
 
-    public Order(User user/*,Cart cart*/) {
+    public Order(User user, Cart cart) {
         this.user = user;
-        //this.cart = cart;
-        this.updates = new ArrayList<>(Arrays.asList(LocalDate.now()));
+        this.cart = cart;
     }
 
     public Long getId() {
@@ -41,11 +38,8 @@ public class Order {
         return user;
     }
 
-    //public Cart getCart() {
-      //  return cart;
-    //}
-
-    public List<LocalDate> getUpdates() {
-        return updates;
+    public Cart getCart() {
+        return cart;
     }
+
 }
