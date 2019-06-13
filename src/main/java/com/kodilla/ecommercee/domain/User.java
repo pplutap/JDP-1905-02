@@ -1,19 +1,22 @@
 package com.kodilla.ecommercee.domain;
 
+import com.kodilla.ecommercee.GenericEntity;
+import com.kodilla.ecommercee.service.TokenService;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class User {
+public class User extends GenericEntity {
     @Id
     @GeneratedValue
     @NotNull
     @Column(name = "ID" ,unique = true)
     private Long id;
     private String username;
-    private boolean status;
+    private String status;
     private Long userKey;
 
     @OneToMany(targetEntity = Order.class,
@@ -24,25 +27,32 @@ public class User {
 
     public User(){}
 
-    public User(String username, Long userKey) {
+    public User(String username) {
         this.username = username;
-        this.userKey = userKey;
-        this.status = false;
+        TokenService tokenService = new TokenService();
+        this.userKey=tokenService.generateRandomKey();
+        this.status = "UNBLOCKED";
     }
 
+    @Override
     public Long getId() {
         return id;
     }
+
 
     public String getUsername() {
         return username;
     }
 
-    public boolean isStatus() {
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -50,7 +60,7 @@ public class User {
         return userKey;
     }
 
-    public List<Order> getOrders() {
-        return orders;
-    }
+
+
+
 }

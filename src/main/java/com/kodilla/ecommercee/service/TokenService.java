@@ -11,7 +11,7 @@ public class TokenService {
 
     private Random randomGenerator = new Random();
 
-    public String generateRandomKey(){
+    public Long generateRandomKey(){
 
         int keySize = 5;
         String key = "";
@@ -21,7 +21,7 @@ public class TokenService {
             key += generatedNumber;
 
         }
-        return key;
+        return Long.getLong(key);
     }
 
 }
