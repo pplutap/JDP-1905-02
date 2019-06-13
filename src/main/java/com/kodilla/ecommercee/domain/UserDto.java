@@ -9,12 +9,12 @@ public class UserDto {
     private Long id;
     private String username;
     private String status;
-    private String userKey;
+    private Long userKey;
 
     @JsonIgnore
     private List<OrderDto> orders = new ArrayList<>();
 
-    public UserDto(Long id, String username, String status, String userKey) {
+    public UserDto(Long id, String username, String status, Long userKey) {
         this.id = id;
         this.username = username;
         this.status = status;
@@ -36,7 +36,7 @@ public class UserDto {
         return status;
     }
 
-    public String getUserKey() {
+    public Long getUserKey() {
         return userKey;
     }
 
