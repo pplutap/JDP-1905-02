@@ -14,36 +14,44 @@ public class Cart {
     @Column(name= "CART_ID", unique = true)
     private Long cartId;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ORDER_ID")
+    private Order order;
 
-    //@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    //@JoinColumn(name = "ORDER_ID")
-    //private Order order;
-
-    //@ManyToMany(cascade = CascadeType.ALL)
-    //@JoinTable(
-      //      name = "JOIN_PRODUCT_CART",
-        //    joinColumns = {@JoinColumn(name = "CART_ID",referencedColumnName = "CART_ID" )},
-          //  inverseJoinColumns = {@JoinColumn(name ="PRODUCT_ID", referencedColumnName = "PRODUCT_ID")}
-    //)
-    //private List<Product> products;
+    @ManyToMany(cascade = {CascadeType.PERSIST,
+            CascadeType.REFRESH})
+    @JoinTable(
+            name = "JOIN_PRODUCT_CART",
+            joinColumns = {@JoinColumn(name = "CART_ID")},
+            inverseJoinColumns = {@JoinColumn(name ="PRODUCT_ID")}
+    )
+    private List<Product> products;
+    private LocalDate cartUpdate;
 
     public Cart() {
     }
 
     public Cart(List<Product> products) {
-        //this.products = new ArrayList<>();
+        this.products = new ArrayList<>();
     }
 
     public Long getCartId() {
         return cartId;
     }
 
-    //public Order getOrder() {
-        //return order;
-    //}
+    public Order getOrder() {
+        return order;
+    }
 
-    //public List<Product> getProducts() {
-        //return products;
-    //}
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public LocalDate getUpdates() {
+        return cartUpdate;
+    }
 }

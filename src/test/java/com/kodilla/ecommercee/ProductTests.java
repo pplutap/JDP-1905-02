@@ -2,6 +2,7 @@ package com.kodilla.ecommercee;
 
 import com.kodilla.ecommercee.domain.Product;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -4,19 +4,24 @@ import com.kodilla.ecommercee.GenericEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 public class Product extends GenericEntity {
     @Id
     @NotNull
-    @Column(name="ID", unique = true)
     @GeneratedValue
+    @Column(name="PRODUCT_ID", unique = true)
     private Long id;
     private String name;
     private String description;
     private double price;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.PERSIST,
+            mappedBy = "products")
+    private List<Cart> carts;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "GROUP_ID")
     private Group group;
 
@@ -50,5 +55,13 @@ public class Product extends GenericEntity {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public List<Cart> getCarts() {
+        return carts;
+    }
+
+    public void setCarts(List<Cart> carts) {
+        this.carts = carts;
     }
 }

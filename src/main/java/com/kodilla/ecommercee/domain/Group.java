@@ -13,12 +13,13 @@ public class Group extends GenericEntity {
     @Id
     @GeneratedValue
     @NotNull
-    @Column(unique = true)
+    @Column(name = "GROUP_ID" ,unique = true)
     private Long id;
 
     private String name;
 
-    @OneToMany(targetEntity = Product.class, mappedBy = "group", fetch=FetchType.LAZY)
+    @OneToMany(targetEntity = Product.class, mappedBy = "group",
+            cascade = CascadeType.ALL,fetch=FetchType.LAZY)
     private List<Product> products = new ArrayList<>();
 
     public Group(String name) {

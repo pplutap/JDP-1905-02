@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class User {
     @Id
     @GeneratedValue
@@ -15,7 +16,10 @@ public class User {
     private boolean status;
     private Long userKey;
 
-    @OneToMany(targetEntity = Order.class, mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Order.class,
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
     private List<Order> orders = new ArrayList<>();
 
     public User(){}
