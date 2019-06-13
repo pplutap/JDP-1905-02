@@ -2,10 +2,11 @@ package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.ProductNotFoundException;
 import com.kodilla.ecommercee.domain.ProductDto;
+import com.kodilla.ecommercee.mapper.ProductMapper;
+import com.kodilla.ecommercee.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -14,29 +15,34 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping("/superShop")
 public class ProductController {
 
+    @Autowired
+    private ProductService service;
+
+    @Autowired
+    private ProductMapper productMapper;
+
     @RequestMapping(method = RequestMethod.GET, value = "getProducts")
     public List<ProductDto> getProducts(){
-        return new ArrayList<>(Arrays.asList(new ProductDto(1L,"SuperButter", "Super Fat Butter.", 3.99, 1L),
-                new ProductDto(2L, "Mega Meal", "Epic meal moment.",8.99, 1L)));
+        return productMapper.mapToProductDtoList(service.getAllProducts);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getProduct")
     public ProductDto getProduct(@RequestParam Long productId) throws ProductNotFoundException {
-        return new ProductDto(1L, "Test product", "Test description",5.99, 2L);
+        return productMapper.mapToProductDto(service.getProduct(productId)).orElseThrow(ProductNotFoundException::new));
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createProduct", consumes = APPLICATION_JSON_VALUE)
     public void createProduct(@RequestBody ProductDto productDto){
-
+        service.saveProduct(productMapper.mapToProduct(productDto));
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateProduct", consumes = APPLICATION_JSON_VALUE)
     public ProductDto updateProduct(@RequestBody ProductDto productDto){
-        return new ProductDto(1L, "Edited test title", "Edited or not test description.",0.99,2L);
+        return productMapper.mapToProductDto(service.saveProduct(productMapper.mapToProduct));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteProduct")
     public void deleteProduct(@RequestParam Long productId) throws ProductNotFoundException{
-
+        service.deleteProduct(productId).orElseThrow(ProductNotFoundException::new);
     }
 }
