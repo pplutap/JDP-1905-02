@@ -28,5 +28,4 @@ public class UserController {
     public UserDto generatingKeyOfFourNumbersValidForOneHour(@RequestParam Long userId) {
         return new UserDto(1L, "testUser", "1" , dbService.generateRandomKey());
     }
-
 }
