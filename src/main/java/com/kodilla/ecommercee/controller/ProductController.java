@@ -1,6 +1,7 @@
 package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.ProductNotFoundException;
+import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.ProductDto;
 import com.kodilla.ecommercee.mapper.ProductMapper;
 import com.kodilla.ecommercee.service.ProductService;
@@ -23,12 +24,12 @@ public class ProductController {
 
     @RequestMapping(method = RequestMethod.GET, value = "getProducts")
     public List<ProductDto> getProducts(){
-        return productMapper.mapToProductDtoList(service.getAllProducts);
+        return productMapper.mapToProductDtoList(service.getAllProducts());
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getProduct")
     public ProductDto getProduct(@RequestParam Long productId) throws ProductNotFoundException {
-        return productMapper.mapToProductDto(service.getProduct(productId)).orElseThrow(ProductNotFoundException::new));
+        return productMapper.mapToProductDto((Product) service.getProduct(productId).orElseThrow(ProductNotFoundException::new));
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createProduct", consumes = APPLICATION_JSON_VALUE)
@@ -38,11 +39,11 @@ public class ProductController {
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateProduct", consumes = APPLICATION_JSON_VALUE)
     public ProductDto updateProduct(@RequestBody ProductDto productDto){
-        return productMapper.mapToProductDto(service.saveProduct(productMapper.mapToProduct));
+        return productMapper.mapToProductDto(service.saveProduct(productMapper.mapToProduct(productDto)));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteProduct")
-    public void deleteProduct(@RequestParam Long productId) throws ProductNotFoundException{
-        service.deleteProduct(productId).orElseThrow(ProductNotFoundException::new);
+    public void deleteProduct(@RequestParam Long productId) {
+        service.deleteProduct(productId);
     }
 }

@@ -13,8 +13,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping("/superShop")
 public class CartController {
-    private static final ProductDto socks = new ProductDto(3L, "Sport socks", "Most breathable fabric.",9.99, 2L);
-    private static final ProductDto tshirt = new ProductDto(4L, "UV T-Shirt", "100% UV protection", 29.99, 2L);
+    private static final ProductDto socks = new ProductDto("Sport socks", "Most breathable fabric.",9.99);
+    private static final ProductDto tshirt = new ProductDto("UV T-Shirt", "100% UV protection", 29.99);
 
     @RequestMapping(method = RequestMethod.POST, value = "createEmptyCart")
     public void createEmptyCart(){
