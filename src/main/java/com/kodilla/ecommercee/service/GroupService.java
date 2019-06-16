@@ -1,7 +1,7 @@
 package com.kodilla.ecommercee.service;
 
-import com.kodilla.ecommercee.domain.Product;
-import com.kodilla.ecommercee.repository.ProductRepository;
+import com.kodilla.ecommercee.domain.Group;
+import com.kodilla.ecommercee.repository.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,24 +10,24 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProductService {
+public class GroupService {
     @Autowired
-    private ProductRepository repository;
+    private GroupRepository repository;
 
-    public List<Product> getAllProducts() {
+    public List<Group> getAllGroups() {
         return repository.findAll();
     }
 
-    public Optional<Product> getProduct(final Long id) {
+    public Optional<Group> getGroup(final Long id) {
         return repository.findById(id);
     }
 
-    public Product saveProduct(final Product product) {
-        return repository.save(product);
+    public Group saveGroup(final Group group) {
+        return repository.save(group);
     }
 
     @Transactional
-    public void deleteProduct(final Long id){
+    public void deleteGroup(final Long id){
         repository.deleteById(id);
     }
 }

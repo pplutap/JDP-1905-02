@@ -2,6 +2,7 @@ package com.kodilla.ecommercee;
 
 import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.User;
+import com.kodilla.ecommercee.repository.UserRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -21,7 +23,7 @@ public class UserCrudTestSuite {
 
 
     @Autowired
-    private GenericEntityRepository genericEntityRepository;
+    private UserRepository userRepository;
 
     @Test
     public void testUserSave() {
@@ -29,13 +31,13 @@ public class UserCrudTestSuite {
         User user = new User(USER_NAME_NOWAK);
 
         //When
-        genericEntityRepository.save(user);
+        userRepository.save(user);
 
         //Then
         Long id = user.getId();
-        User userById = (User) genericEntityRepository.getOne(id);
-        Assert.assertEquals("NOWAK JAN", userById.getUsername());
-        Assert.assertEquals("UNBLOCKED", userById.getStatus());
+        Optional<User> userById = userRepository.findById(id);
+        Assert.assertEquals("NOWAK JAN", userById.get().getUsername());
+        Assert.assertEquals("UNBLOCKED", userById.get().getStatus());
 
     }
 
@@ -45,15 +47,15 @@ public class UserCrudTestSuite {
         User user = new User(USER_NAME_NOWAK);
 
         //When
-        genericEntityRepository.save(user);
+        userRepository.save(user);
         user.setStatus("BLOCKED");
         user.setUsername(USER_NAME_KOWALSKI);
 
         //Then
         Long id = user.getId();
-        User userById = (User) genericEntityRepository.getOne(id);
-        Assert.assertEquals("KOWALSKI JAKUB", userById.getUsername());
-        Assert.assertEquals("BLOCKED", userById.getStatus());
+        Optional<User> userById = userRepository.findById(id);
+        Assert.assertEquals("KOWALSKI JAKUB", userById.get().getUsername());
+        Assert.assertEquals("BLOCKED", userById.get().getStatus());
 
     }
 
@@ -65,13 +67,13 @@ public class UserCrudTestSuite {
         User userKowalski = new User(USER_NAME_KOWALSKI);
 
         //When
-        genericEntityRepository.save(userNowak);
-        genericEntityRepository.save(userKowalski);
-        Long recordCount = genericEntityRepository.count();
+        userRepository.save(userNowak);
+        userRepository.save(userKowalski);
+        Long recordCount = userRepository.count();
 
         //Then
-        genericEntityRepository.delete(userNowak);
-        Assert.assertEquals(recordCount-1, genericEntityRepository.count());
+        userRepository.delete(userNowak);
+        Assert.assertEquals(recordCount-1, userRepository.count());
 
      }
 
