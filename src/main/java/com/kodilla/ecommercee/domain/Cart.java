@@ -12,7 +12,7 @@ public class Cart {
     @NotNull
     @GeneratedValue
     @Column(name= "CART_ID", unique = true)
-    private Long cartId;
+    private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ORDER_ID")
@@ -35,8 +35,8 @@ public class Cart {
         this.products = new ArrayList<>();
     }
 
-    public Long getCartId() {
-        return cartId;
+    public Long getId() {
+        return id;
     }
 
     public Order getOrder() {
