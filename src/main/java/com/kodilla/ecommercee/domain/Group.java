@@ -1,14 +1,13 @@
 package com.kodilla.ecommercee.domain;
 
-import com.kodilla.ecommercee.GenericEntity;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Group extends GenericEntity {
+@Table(name = "TABLE_OF_GROUPS")
+public class Group  {
 
     @Id
     @GeneratedValue

@@ -1,8 +1,8 @@
 package com.kodilla.ecommercee;
 
 import com.kodilla.ecommercee.domain.Group;
+import com.kodilla.ecommercee.repository.GroupRepository;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
-import java.beans.Transient;
+import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -22,7 +22,7 @@ public class GroupCrudTestSuite {
     private static final String GROUP_NAME_CLOTHES = "Ubrania";
 
     @Autowired
-    private GenericEntityRepository genericEntityRepository;
+    private GroupRepository groupRepository;
 
     @Test
     public void testGroupSave() {
@@ -30,12 +30,12 @@ public class GroupCrudTestSuite {
         Group group = new Group(GROUP_NAME_AGD);
 
         //When
-        genericEntityRepository.save(group);
+        groupRepository.save(group);
 
         //Then
         Long id = group.getId();
-        Group groupById = (Group) genericEntityRepository.getOne(id);
-        Assert.assertEquals("Drobne AGD", groupById.getName());
+        Optional<Group> groupById = groupRepository.findById(id);
+        Assert.assertEquals("Drobne AGD", groupById.get().getName());
 
     }
 
@@ -45,13 +45,13 @@ public class GroupCrudTestSuite {
         Group group = new Group(GROUP_NAME_AGD);
 
         //When
-        genericEntityRepository.save(group);
+        groupRepository.save(group);
         group.setName(GROUP_NAME_CLOTHES);
 
         //Then
         Long id = group.getId();
-        Group groupById = (Group) genericEntityRepository.getOne(id);
-        Assert.assertEquals("Ubrania", groupById.getName());
+        Optional<Group> groupById = groupRepository.findById(id);
+        Assert.assertEquals("Ubrania", groupById.get().getName());
 
     }
 
@@ -64,14 +64,14 @@ public class GroupCrudTestSuite {
         Group groupClothes= new Group(GROUP_NAME_CLOTHES);
 
         //When
-        genericEntityRepository.save(groupAgd);
-        genericEntityRepository.save(groupFood);
-        genericEntityRepository.save(groupClothes);
-        Long recordCount = genericEntityRepository.count();
+        groupRepository.save(groupAgd);
+        groupRepository.save(groupFood);
+        groupRepository.save(groupClothes);
+        Long recordCount = groupRepository.count();
 
         //Then
-        genericEntityRepository.delete(groupAgd);
-        Assert.assertEquals(recordCount-1, genericEntityRepository.count());
+        groupRepository.delete(groupAgd);
+        Assert.assertEquals(recordCount-1, groupRepository.count());
 
      }
 }
