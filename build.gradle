@@ -7,6 +7,10 @@ buildscript {
     }
 }
 
+plugins {
+    id "org.sonarqube" version "2.7"
+}
+
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
@@ -28,4 +32,6 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     compile('mysql:mysql-connector-java')
     //compile('org.postgresql:postgresql')
+    compile('com.google.code.gson:gson:2.8.2')
+    testCompile group: 'com.shazam', name: 'shazamcrest', version: '0.11'
 }

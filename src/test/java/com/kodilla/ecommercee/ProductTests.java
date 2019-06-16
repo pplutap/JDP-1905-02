@@ -1,8 +1,8 @@
 package com.kodilla.ecommercee;
 
 import com.kodilla.ecommercee.domain.Product;
+import com.kodilla.ecommercee.repository.ProductRepository;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,14 +11,17 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+
+import java.util.Optional;
+
+
 @Transactional
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ProductTests {
 
     @Autowired
-    private GenericEntityRepository genericEntityRepository;
-
+    private ProductRepository productRepository;
 
     @Test
     public void testSaveProduct() {
@@ -27,9 +30,9 @@ public class ProductTests {
         Product product = new Product("Altana SunSet", "Altana ogrodowa ...", 999.90);
 
         //When
-        genericEntityRepository.save(product);
+        productRepository.save(product);
         Long id = product.getId();
-        Product foundProduct = (Product) genericEntityRepository.getOne(id);
+        Optional<Product> foundProduct = productRepository.findById(id);
 
         //Then
         Assert.assertNotEquals(null, foundProduct);
@@ -41,16 +44,16 @@ public class ProductTests {
 
         //Given
         Product product = new Product("Altana SunSet", "Altana ogrodowa ...", 999.90);
-        genericEntityRepository.save(product);
+        productRepository.save(product);
         Long id = product.getId();
-        Product productToUpdate = (Product) genericEntityRepository.getOne(id);
+        Optional<Product> productToUpdate = productRepository.findById(id);
 
         //When
-        productToUpdate.setPrice(1000.73);
-        genericEntityRepository.save(productToUpdate);
+        productToUpdate.get().setPrice(1000.73);
+        productRepository.save(productToUpdate.get());
 
-        productToUpdate = (Product) genericEntityRepository.getOne(id);
-        double updatedPrice = productToUpdate.getPrice();
+        productToUpdate = productRepository.findById(id);
+        double updatedPrice = productToUpdate.get().getPrice();
 
         //Then
         Assert.assertEquals(1000.73, updatedPrice, 0.00);
@@ -64,14 +67,14 @@ public class ProductTests {
         Product product1 = new Product("Altana SunSet", "Altana ogrodowa ...", 999.90);
         Product product2 = new Product("Krzesło Romea", "Krzesło składane z drewna ...", 66.90);
         Product product3 = new Product("Wkrętarka udarowa", "Wkrętarka marki Hilti ...", 3980.90);
-        genericEntityRepository.save(product1);
-        genericEntityRepository.save(product2);
-        genericEntityRepository.save(product3);
+        productRepository.save(product1);
+        productRepository.save(product2);
+        productRepository.save(product3);
 
         //When
-        long productCounterBeforeDeletion = genericEntityRepository.count();
-        genericEntityRepository.delete(product1);
-        long productCounter = genericEntityRepository.count();
+        long productCounterBeforeDeletion = productRepository.count();
+        productRepository.delete(product1);
+        long productCounter = productRepository.count();
 
 
         //Then
@@ -83,14 +86,14 @@ public class ProductTests {
 
         //Given
         Product product = new Product("Altana SunSet", "Altana ogrodowa ...", 999.90);
-        genericEntityRepository.save(product);
+        productRepository.save(product);
 
         //When
         Long id = product.getId();
-        Product foundProduct = (Product) genericEntityRepository.getOne(id);
-        String productName = foundProduct.getName();
-        String productDescription = foundProduct.getDescription();
-        double productPrice = foundProduct.getPrice();
+        Optional<Product> foundProduct = productRepository.findById(id);
+        String productName = foundProduct.get().getName();
+        String productDescription = foundProduct.get().getDescription();
+        double productPrice = foundProduct.get().getPrice();
 
         //Then
         Assert.assertEquals("Altana ogrodowa ...", productDescription);
@@ -106,13 +109,13 @@ public class ProductTests {
         Product product1 = new Product("Altana SunSet", "Altana ogrodowa ...", 999.90);
         Product product2 = new Product("Krzesło Romea", "Krzesło składane z drewna ...", 66.90);
         Product product3 = new Product("Wkrętarka udarowa", "Wkrętarka marki Hilti ...", 3980.90);
-        int productCounterBeforeSave = genericEntityRepository.findAll().size();
-        genericEntityRepository.save(product1);
-        genericEntityRepository.save(product2);
-        genericEntityRepository.save(product3);
+        int productCounterBeforeSave = productRepository.findAll().size();
+        productRepository.save(product1);
+        productRepository.save(product2);
+        productRepository.save(product3);
 
         //When
-        int productCounter = genericEntityRepository.findAll().size();
+        int productCounter = productRepository.findAll().size();
 
         //Then
         Assert.assertEquals(productCounterBeforeSave + 3, productCounter);

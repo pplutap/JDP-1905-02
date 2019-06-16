@@ -1,6 +1,5 @@
 package com.kodilla.ecommercee.domain;
 
-import com.kodilla.ecommercee.GenericEntity;
 import com.kodilla.ecommercee.service.TokenService;
 
 import javax.persistence.*;
@@ -9,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class User extends GenericEntity {
+public class User {
     @Id
     @GeneratedValue
     @NotNull
@@ -34,11 +33,9 @@ public class User extends GenericEntity {
         this.status = "UNBLOCKED";
     }
 
-    @Override
     public Long getId() {
         return id;
     }
-
 
     public String getUsername() {
         return username;
@@ -59,8 +56,4 @@ public class User extends GenericEntity {
     public Long getUserKey() {
         return userKey;
     }
-
-
-
-
 }
