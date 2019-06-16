@@ -18,8 +18,8 @@ public class CartService {
         return repository.findAll();
     }
 
-    public Optional<Cart> getCart(final Long id) {
-        return repository.findById(id);
+    public Cart getCart(final Long id) {
+        return repository.getOne(id);
     }
 
     public Cart saveCart(final Cart cart) {

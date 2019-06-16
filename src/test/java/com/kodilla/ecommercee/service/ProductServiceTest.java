@@ -2,6 +2,7 @@ package com.kodilla.ecommercee.service;
 
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.ProductDto;
+import com.kodilla.ecommercee.repository.ProductRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,6 +25,8 @@ public class ProductServiceTest {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private ProductRepository productRepository;
 
     @Test
     public void getAllProductsAndSave()  {
@@ -52,7 +55,7 @@ public class ProductServiceTest {
         productService.saveProduct(product);
 
         //When
-        Product requestedProduct = productService.getProduct(product.getId()).get();
+        Product requestedProduct = productService.getProduct(product.getId());
 
         //Then
         assertThat(product, sameBeanAs(requestedProduct));
@@ -66,12 +69,14 @@ public class ProductServiceTest {
         //Given
         Product product = new Product("product", "test product", 9.99);
         productService.saveProduct(product);
-        Optional<Product> requestedProduct = productService.getProduct(product.getId());
+        Product requestedProduct = productService.getProduct(product.getId());
+        long productCounterBeforeDeletion = productRepository.count();
 
         //When
-        productService.deleteProduct(requestedProduct.get().getId());
+        productService.deleteProduct(requestedProduct.getId());
+        long productCounter = productRepository.count();
 
         //Then
-        Assert.assertFalse(productService.getProduct(requestedProduct.get().getId()).isPresent());
+        Assert.assertEquals(productCounterBeforeDeletion - 1, productCounter);
     }
 }

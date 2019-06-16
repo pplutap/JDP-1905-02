@@ -9,10 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.CrossOrigin;
-
-
-import java.util.Optional;
 
 
 @Transactional
@@ -32,7 +28,7 @@ public class ProductTests {
         //When
         productRepository.save(product);
         Long id = product.getId();
-        Optional<Product> foundProduct = productRepository.findById(id);
+        Product foundProduct = productRepository.getOne(id);
 
         //Then
         Assert.assertNotEquals(null, foundProduct);
@@ -46,14 +42,14 @@ public class ProductTests {
         Product product = new Product("Altana SunSet", "Altana ogrodowa ...", 999.90);
         productRepository.save(product);
         Long id = product.getId();
-        Optional<Product> productToUpdate = productRepository.findById(id);
+        Product productToUpdate = productRepository.getOne(id);
 
         //When
-        productToUpdate.get().setPrice(1000.73);
-        productRepository.save(productToUpdate.get());
+        productToUpdate.setPrice(1000.73);
+        productRepository.save(productToUpdate);
 
-        productToUpdate = productRepository.findById(id);
-        double updatedPrice = productToUpdate.get().getPrice();
+        productToUpdate = productRepository.getOne(id);
+        double updatedPrice = productToUpdate.getPrice();
 
         //Then
         Assert.assertEquals(1000.73, updatedPrice, 0.00);
@@ -90,10 +86,10 @@ public class ProductTests {
 
         //When
         Long id = product.getId();
-        Optional<Product> foundProduct = productRepository.findById(id);
-        String productName = foundProduct.get().getName();
-        String productDescription = foundProduct.get().getDescription();
-        double productPrice = foundProduct.get().getPrice();
+        Product foundProduct = productRepository.getOne(id);
+        String productName = foundProduct.getName();
+        String productDescription = foundProduct.getDescription();
+        double productPrice = foundProduct.getPrice();
 
         //Then
         Assert.assertEquals("Altana ogrodowa ...", productDescription);

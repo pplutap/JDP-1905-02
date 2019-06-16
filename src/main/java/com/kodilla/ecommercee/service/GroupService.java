@@ -18,8 +18,8 @@ public class GroupService {
         return repository.findAll();
     }
 
-    public Optional<Group> getGroup(final Long id) {
-        return repository.findById(id);
+    public Group getGroup(final Long id) {
+        return repository.getOne(id);
     }
 
     public Group saveGroup(final Group group) {

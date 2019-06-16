@@ -1,6 +1,5 @@
 package com.kodilla.ecommercee.controller;
 
-import com.kodilla.ecommercee.OrderNotFoundException;
 import com.kodilla.ecommercee.domain.OrderDto;
 import com.kodilla.ecommercee.domain.ProductDto;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +30,7 @@ public class OrderController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getOrder")
-    public OrderDto getOrder(@RequestParam Long orderId) throws OrderNotFoundException {
+    public OrderDto getOrder(@RequestParam Long orderId){
         return new OrderDto(1L, 2019, 03, 03, true, true, new ArrayList<ProductDto>());
     }
 
@@ -41,7 +40,7 @@ public class OrderController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteOrder")
-    public void deleteOrder(Long orderId) throws OrderNotFoundException {
+    public void deleteOrder(Long orderId){
     }
 
 }
