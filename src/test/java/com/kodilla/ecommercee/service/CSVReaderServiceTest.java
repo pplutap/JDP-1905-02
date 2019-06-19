@@ -1,7 +1,9 @@
 package com.kodilla.ecommercee.service;
 
+import com.kodilla.ecommercee.controller.ProductController;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.ProductDto;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,22 +19,38 @@ import java.util.List;
 @SpringBootTest
 public class CSVReaderServiceTest {
 
+    @Autowired
+    private ProductController productController;
+
+    @Autowired
+    private CSVReaderService csvReaderService;
 
 
     @Test
-    public void getAllProductsAndSave()  {
+    public void getAllProductsToList()  {
         //Given
-        CSVReaderService csvReaderService = new CSVReaderService();
 
         //When
         List<ProductDto> productDtoList = csvReaderService.CSVToBeanList();
-        for(ProductDto productDto : productDtoList){
-            System.out.println(productDto.getName());
-        }
 
         //Then
-        //assertThat(product1, sameBeanAs(requestedProducts.get(requestedProducts.size()-2)));
-
-
+        Assert.assertEquals(4,productDtoList.size());
     }
+
+    @Test
+    public void saveProductFromList()  {
+        //Given
+        List<ProductDto> productDtoList = csvReaderService.CSVToBeanList();
+
+        //When
+        productController.createProductFromList(productDtoList);
+        List<ProductDto> savedProductsList = productController.getProducts();
+
+
+        //Then
+        Assert.assertTrue(productDtoList.equals(savedProductsList));
+        Assert.assertEquals(4, savedProductsList.size());
+    }
+
+
 }

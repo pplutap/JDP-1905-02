@@ -47,4 +47,10 @@ public class ProductController {
     public void deleteProduct(@RequestParam Long productId) {
         service.deleteProduct(productId);
     }
+
+    public void createProductFromList(List<ProductDto> productDtoList){
+        for(ProductDto productDto : productDtoList){
+            createProduct(productDto);
+        }
+    }
 }
