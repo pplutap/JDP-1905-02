@@ -7,10 +7,13 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import java.io.File;
 import java.util.List;
 
 
@@ -25,22 +28,23 @@ public class CSVReaderServiceTest {
     @Autowired
     private CSVReaderService csvReaderService;
 
+    String resourceFile = "src/test/resources/products.csv";
 
     @Test
     public void getAllProductsToList()  {
         //Given
 
         //When
-        List<ProductDto> productDtoList = csvReaderService.CSVToBeanList();
+        List<ProductDto> productDtoList = csvReaderService.CSVToBeanList(resourceFile);
 
         //Then
-       // Assert.assertEquals(4,productDtoList.size());
+        Assert.assertEquals(4,productDtoList.size());
     }
 
     @Test
     public void saveProductFromList()  {
         //Given
-        List<ProductDto> productDtoList = csvReaderService.CSVToBeanList();
+        List<ProductDto> productDtoList = csvReaderService.CSVToBeanList(resourceFile);
 
         //When
         productController.createProductFromList(productDtoList);
@@ -48,8 +52,8 @@ public class CSVReaderServiceTest {
 
 
         //Then
-       // Assert.assertTrue(productDtoList.equals(savedProductsList));
-       // Assert.assertEquals(4, savedProductsList.size());
+       Assert.assertTrue(productDtoList.equals(savedProductsList));
+       Assert.assertEquals(4, savedProductsList.size());
     }
 
 
