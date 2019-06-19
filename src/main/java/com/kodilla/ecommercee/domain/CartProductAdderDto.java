@@ -3,18 +3,18 @@ package com.kodilla.ecommercee.domain;
 import java.util.List;
 
 public class CartProductAdderDto {
-    private Long cartId;
+    private Long id;
     private List<Product> products;
 
     public CartProductAdderDto(){}
 
-    public CartProductAdderDto(Long cartId, List<Product> products) {
-        this.cartId = cartId;
+    public CartProductAdderDto(Long id, List<Product> products) {
+        this.id = id;
         this.products = products;
     }
 
-    public Long getCartId() {
-        return cartId;
+    public Long getId() {
+        return id;
     }
 
     public List<Product> getProducts() {
