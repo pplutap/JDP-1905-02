@@ -32,7 +32,7 @@ public class Cart {
     }
 
     public Cart(List<Product> products) {
-        this.products = new ArrayList<>();
+        this.products = products;
     }
 
     public Long getCartId() {
