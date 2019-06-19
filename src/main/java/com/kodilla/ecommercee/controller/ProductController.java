@@ -1,6 +1,5 @@
 package com.kodilla.ecommercee.controller;
 
-import com.kodilla.ecommercee.ProductNotFoundException;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.ProductDto;
 import com.kodilla.ecommercee.mapper.ProductMapper;
@@ -29,8 +28,8 @@ public class ProductController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getProduct")
-    public ProductDto getProduct(@RequestParam Long productId) throws ProductNotFoundException {
-        return productMapper.mapToProductDto((Product) service.getProduct(productId).orElseThrow(ProductNotFoundException::new));
+    public ProductDto getProduct(@RequestParam Long productId){
+        return productMapper.mapToProductDto((Product) service.getProduct(productId));
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createProduct", consumes = APPLICATION_JSON_VALUE)

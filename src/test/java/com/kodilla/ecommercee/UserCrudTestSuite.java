@@ -35,9 +35,9 @@ public class UserCrudTestSuite {
 
         //Then
         Long id = user.getId();
-        Optional<User> userById = userRepository.findById(id);
-        Assert.assertEquals("NOWAK JAN", userById.get().getUsername());
-        Assert.assertEquals("UNBLOCKED", userById.get().getStatus());
+        User userById = userRepository.getOne(id);
+        Assert.assertEquals("NOWAK JAN", userById.getUsername());
+        Assert.assertEquals("UNBLOCKED", userById.getStatus());
 
     }
 
@@ -53,9 +53,9 @@ public class UserCrudTestSuite {
 
         //Then
         Long id = user.getId();
-        Optional<User> userById = userRepository.findById(id);
-        Assert.assertEquals("KOWALSKI JAKUB", userById.get().getUsername());
-        Assert.assertEquals("BLOCKED", userById.get().getStatus());
+        User userById = userRepository.getOne(id);
+        Assert.assertEquals("KOWALSKI JAKUB", userById.getUsername());
+        Assert.assertEquals("BLOCKED", userById.getStatus());
 
     }
 

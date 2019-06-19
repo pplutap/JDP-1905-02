@@ -18,8 +18,8 @@ public class OrderService {
         return repository.findAll();
     }
 
-    public Optional<Order> getOrder(final Long id) {
-        return repository.findById(id);
+    public Order getOrder(final Long id) {
+        return repository.getOne(id);
     }
 
     public Order saveOrder(final Order order) {

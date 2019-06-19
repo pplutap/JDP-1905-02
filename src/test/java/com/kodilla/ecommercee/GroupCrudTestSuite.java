@@ -34,8 +34,8 @@ public class GroupCrudTestSuite {
 
         //Then
         Long id = group.getId();
-        Optional<Group> groupById = groupRepository.findById(id);
-        Assert.assertEquals("Drobne AGD", groupById.get().getName());
+        Group groupById = groupRepository.getOne(id);
+        Assert.assertEquals("Drobne AGD", groupById.getName());
 
     }
 
@@ -50,8 +50,8 @@ public class GroupCrudTestSuite {
 
         //Then
         Long id = group.getId();
-        Optional<Group> groupById = groupRepository.findById(id);
-        Assert.assertEquals("Ubrania", groupById.get().getName());
+        Group groupById = groupRepository.getOne(id);
+        Assert.assertEquals("Ubrania", groupById.getName());
 
     }
 

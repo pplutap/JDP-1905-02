@@ -18,8 +18,8 @@ public class UserService {
         return repository.findAll();
     }
 
-    public Optional<User> getUser(final Long id) {
-        return repository.findById(id);
+    public User getUser(final Long id) {
+        return repository.getOne(id);
     }
 
     public User saveUser(final User product) {

@@ -48,7 +48,7 @@ public class ProductControllerTest {
 
     @Test
     public void getProductAndCreateProductTest() throws Exception {
-        when(service.getProduct(anyLong())).thenReturn(java.util.Optional.of(product));
+        when(service.getProduct(anyLong())).thenReturn(product);
         when(productMapper.mapToProductDto(ArgumentMatchers.any())).thenReturn(productDto);
 
         mockMvc.perform(get("/superShop/getProduct?productId=1")
