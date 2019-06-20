@@ -7,8 +7,7 @@ public class GroupDto {
     public GroupDto() {
     }
 
-    public GroupDto(Long id, String name) {
-        this.id = id;
+    public GroupDto(String name) {
         this.name = name;
     }
 
