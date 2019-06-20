@@ -21,6 +21,10 @@ public class UserDto {
         this.userKey = userKey;
     }
 
+    public UserDto(String username) {
+        this.username = username;
+    }
+
     public UserDto() {
     }
 
@@ -42,5 +46,13 @@ public class UserDto {
 
     public List<OrderDto> getOrders() {
         return orders;
+    }
+
+    public void blockUser(){
+        this.status = "BLOCKED";
+    }
+
+    public void setUserKey(Long userKey) {
+        this.userKey = userKey;
     }
 }
