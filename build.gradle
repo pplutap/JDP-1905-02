@@ -33,5 +33,6 @@ dependencies {
     compile('mysql:mysql-connector-java')
     //compile('org.postgresql:postgresql')
     compile('com.google.code.gson:gson:2.8.2')
+    compile group: 'com.opencsv', name: 'opencsv', version: '4.1'
     testCompile group: 'com.shazam', name: 'shazamcrest', version: '0.11'
 }

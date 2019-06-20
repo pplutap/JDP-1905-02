@@ -1,8 +1,13 @@
 package com.kodilla.ecommercee.domain;
 
+import com.opencsv.bean.CsvBindByPosition;
+
 public class ProductDto {
+    @CsvBindByPosition(position = 0, required = true)
     private String name;
+    @CsvBindByPosition(position = 1, required = true)
     private String description;
+    @CsvBindByPosition(position = 2, required = true)
     private double price;
 
     public ProductDto() {}
@@ -23,5 +28,29 @@ public class ProductDto {
 
     public double getPrice() {
         return price;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ProductDto that = (ProductDto) o;
+
+        if (Double.compare(that.price, price) != 0) return false;
+        if (!name.equals(that.name)) return false;
+        return description.equals(that.description);
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = name.hashCode();
+        result = 31 * result + description.hashCode();
+        temp = Double.doubleToLongBits(price);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
     }
 }
