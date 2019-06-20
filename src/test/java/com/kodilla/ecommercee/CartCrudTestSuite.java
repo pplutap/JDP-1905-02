@@ -37,10 +37,10 @@ public class CartCrudTestSuite {
         //When
         cartRepository.save(cartFirst);
         Long id = cartFirst.getId();
-        Optional<Cart> cartById = cartRepository.findById(id);
+        Cart cartById = cartRepository.getOne(id);
 
         //Then
-        Assert.assertEquals(2,cartById.get().getProducts().size());
+        Assert.assertEquals(2,cartById.getProducts().size());
 
     }
 
@@ -56,16 +56,16 @@ public class CartCrudTestSuite {
         cartFirst.getProducts().add(product2);
         cartRepository.save(cartFirst);
         Long id = cartFirst.getId();
-        Optional<Cart> cartToUpdate = cartRepository.findById(id);
+        Cart cartToUpdate = cartRepository.getOne(id);
 
         //When
-        cartToUpdate.get().getProducts().add(new Product("strawberries","extra-sweet",7.00));
-        cartRepository.save(cartToUpdate.get());
-        id = cartToUpdate.get().getId();
-        Optional<Cart> cartUpdated = cartRepository.findById(id);
+        cartToUpdate.getProducts().add(new Product("strawberries","extra-sweet",7.00));
+        cartRepository.save(cartToUpdate);
+        id = cartToUpdate.getId();
+        Cart cartUpdated = cartRepository.getOne(id);
 
         //Then
-        Assert.assertEquals(3,cartUpdated.get().getProducts().size());
+        Assert.assertEquals(3,cartUpdated.getProducts().size());
 
     }
 
