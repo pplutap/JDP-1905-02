@@ -54,7 +54,7 @@ public class UserControllerTest {
         UserDto userDtoBlocked = userController.blockingUser(userId);
 
         //Then
-        //Assert.assertEquals("BLOCKED", userDtoBlocked.getStatus());
+        Assert.assertEquals("BLOCKED", userDtoBlocked.getStatus());
 
     }
 
@@ -67,10 +67,11 @@ public class UserControllerTest {
         //When
         List<User> users = userRepository.findAll();
         User user = users.get(users.size()-1);
-        userController.generatingKeyOfFourNumbersValidForOneHour(user.getId());
+        Long userId = user.getId();
+        UserDto userDtoWithKey = userController.generatingKeyOfFourNumbersValidForOneHour(userId);
 
         //Then
-       // Assert.assertNotNull(user.getUserKey());
+        Assert.assertNotNull(userDtoWithKey.getUserKey());
 
     }
 

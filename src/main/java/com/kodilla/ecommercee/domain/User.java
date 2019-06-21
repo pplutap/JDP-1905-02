@@ -26,11 +26,15 @@ public class User {
 
     public User(){}
 
-
+    public User(String username, String status, Long userKey) {
+        this.username = username;
+        this.status = status;
+        this.userKey = userKey;
+    }
 
     public User(String username) {
         this.username = username;
-        this.status = "UNBLOCKED";
+      //  this.status = "UNBLOCKED";
     }
 
     public Long getId() {

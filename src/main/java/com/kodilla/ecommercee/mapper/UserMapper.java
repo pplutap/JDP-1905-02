@@ -9,11 +9,11 @@ public class UserMapper {
 
 
     public UserDto mapToUserDto(User user) {
-        return new UserDto(user.getId(), user.getUsername(), user.getStatus(), user.getUserKey());
+        return new UserDto(user.getUsername(), user.getStatus(), user.getUserKey());
     }
 
     public User mapToUser(UserDto userDto) {
-        return new User(userDto.getUsername());
+        return new User(userDto.getUsername(), userDto.getStatus(), userDto.getUserKey());
     }
 
 }

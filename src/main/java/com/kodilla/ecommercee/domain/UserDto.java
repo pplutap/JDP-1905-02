@@ -23,6 +23,13 @@ public class UserDto {
 
     public UserDto(String username) {
         this.username = username;
+        this.status = "UNBLOCKED";
+    }
+
+    public UserDto(String username, String status, Long userKey) {
+        this.username = username;
+        this.status = status;
+        this.userKey = userKey;
     }
 
     public UserDto() {
