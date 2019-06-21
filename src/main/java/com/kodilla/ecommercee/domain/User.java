@@ -34,7 +34,7 @@ public class User {
 
     public User(String username) {
         this.username = username;
-      //  this.status = "UNBLOCKED";
+        this.status = "UNBLOCKED";
     }
 
     public Long getId() {
