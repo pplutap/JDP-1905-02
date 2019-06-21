@@ -1,7 +1,9 @@
 package com.kodilla.ecommercee.domain;
 
 public class CartProductDeleterDto {
+
     private Long id;
+
     private Long productId;
 
     public CartProductDeleterDto(){}
