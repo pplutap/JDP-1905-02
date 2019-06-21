@@ -12,7 +12,7 @@ public class ProductDto {
     @CsvBindByPosition(position = 2, required = true)
     private double price;
 
-    private Long group;
+    private Long groupId;
 
     public ProductDto() {}
 
@@ -38,12 +38,12 @@ public class ProductDto {
         return id;
     }
 
-    public Long getGroup() {
-        return group;
+    public Long getGroupId() {
+        return groupId;
     }
 
-    public void setGroup(Long group) {
-        this.group = group;
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
     }
 
     public void setId(Long id) {

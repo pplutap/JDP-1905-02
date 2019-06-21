@@ -22,7 +22,7 @@ public class ProductMapper {
             ProductDto productDto = new ProductDto(product.getName(), product.getDescription(), product.getPrice());
             productDto.setId(product.getId());
             try{
-                productDto.setGroup(product.getGroup().getId());
+                productDto.setId(product.getGroup().getId());
             }catch (NullPointerException e) {
 
             }
@@ -35,7 +35,7 @@ public class ProductMapper {
         ProductDto productDto = new ProductDto(product.getName(), product.getDescription(), product.getPrice());
         productDto.setId(product.getId());
         try{
-            productDto.setGroup(product.getGroup().getId());
+            productDto.setId(product.getGroup().getId());
         }catch (NullPointerException e) {
 
         }
