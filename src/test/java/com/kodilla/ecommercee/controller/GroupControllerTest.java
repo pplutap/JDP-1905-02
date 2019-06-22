@@ -18,8 +18,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -80,11 +80,6 @@ public class GroupControllerTest {
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
                 .andExpect(status().isOk());
-    }
-
-    @Test
-    public void deleteGroup() throws Exception{
-
     }
 
 }

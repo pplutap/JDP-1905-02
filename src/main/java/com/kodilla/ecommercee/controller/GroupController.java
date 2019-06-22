@@ -18,13 +18,10 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class GroupController {
 
     @Autowired
-    GroupMapper groupMapper;
+    private GroupMapper groupMapper;
 
     @Autowired
-    GroupService groupService;
-
-    private static final GroupDto food = new GroupDto("Food");
-    private static final GroupDto clothes = new GroupDto( "Clothes");
+    private GroupService groupService;
 
     @RequestMapping(method = RequestMethod.GET, value = "getGroups")
     public List<GroupDto> getGroups() {
@@ -35,9 +32,7 @@ public class GroupController {
     public void createGroup(@RequestBody GroupDto groupDto){
             groupService.saveGroup(groupMapper.mapToGroup(groupDto));
         }
-
-
-
+        
     @RequestMapping(method = RequestMethod.GET, value = "getGroup")
     public GroupDto getGroup(@RequestParam Long groupId){
         return groupMapper.mapToGroupDto(groupService.getGroup(groupId));
