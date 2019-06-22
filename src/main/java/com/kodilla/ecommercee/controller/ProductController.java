@@ -22,27 +22,27 @@ public class ProductController {
     @Autowired
     private ProductMapper productMapper;
 
-    @RequestMapping(method = RequestMethod.GET, value = "getProducts")
+    @GetMapping(path = "getProducts")
     public List<ProductDto> getProducts(){
         return productMapper.mapToProductDtoList(service.getAllProducts());
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "getProduct")
+    @GetMapping(path = "getProduct")
     public ProductDto getProduct(@RequestParam Long productId){
         return productMapper.mapToProductDto((Product) service.getProduct(productId));
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "createProduct", consumes = APPLICATION_JSON_VALUE)
+    @PostMapping(path = "createProduct", consumes = APPLICATION_JSON_VALUE)
     public void createProduct(@RequestBody ProductDto productDto){
         service.saveProduct(productMapper.mapToProduct(productDto));
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "updateProduct", consumes = APPLICATION_JSON_VALUE)
+    @PutMapping(path = "updateProduct", consumes = APPLICATION_JSON_VALUE)
     public ProductDto updateProduct(@RequestBody ProductDto productDto){
         return productMapper.mapToProductDto(service.saveProduct(productMapper.mapToProduct(productDto)));
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "deleteProduct")
+    @DeleteMapping(path = "deleteProduct")
     public void deleteProduct(@RequestParam Long productId) {
         service.deleteProduct(productId);
     }

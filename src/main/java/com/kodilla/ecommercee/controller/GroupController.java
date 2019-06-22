@@ -16,22 +16,22 @@ public class GroupController {
     private static final GroupDto food = new GroupDto(1L, "Food");
     private static final GroupDto clothes = new GroupDto(2L, "Clothes");
 
-    @RequestMapping(method = RequestMethod.GET, value = "getGroups")
+    @GetMapping(path = "getGroups")
     public List<GroupDto> getGroups(){
         return new ArrayList<>(Arrays.asList(food, clothes));
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "createGroup", consumes = APPLICATION_JSON_VALUE)
+    @PostMapping(path = "createGroup", consumes = APPLICATION_JSON_VALUE)
     public void createGroup(@RequestBody GroupDto groupDto){
 
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "getGroup")
+    @GetMapping(path = "getGroup")
     public GroupDto getGroup(@RequestParam Long groupId){
         return food;
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "updateGroup", consumes = APPLICATION_JSON_VALUE)
+    @PutMapping(path = "updateGroup", consumes = APPLICATION_JSON_VALUE)
     public GroupDto updateGroup(@RequestBody GroupDto groupDto){
         return clothes;
     }

@@ -15,17 +15,17 @@ public class UserController {
     @Autowired
     private TokenService dbService;
 
-    @RequestMapping(method = RequestMethod.POST, value = "createUser", consumes = APPLICATION_JSON_VALUE)
+    @PostMapping(path = "createUser", consumes = APPLICATION_JSON_VALUE)
     public UserDto createUser(@RequestBody UserDto userDto) {
         return new UserDto(1L, "testUser", "1", null);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "blockingUser")
+    @PutMapping(path = "blockingUser")
     public UserDto blockingUser(@RequestParam Long userId) {
         return new UserDto(1L, "testUser", "0", null);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "generateUserKey")
+    @PutMapping(path = "generateUserKey")
     public UserDto generatingKeyOfFourNumbersValidForOneHour(@RequestParam Long userId) {
         return new UserDto(1L, "testUser", "1" , dbService.generateRandomKey());
     }

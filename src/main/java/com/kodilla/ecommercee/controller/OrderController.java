@@ -20,26 +20,26 @@ public class OrderController {
     private static final OrderDto firstOrder = new OrderDto(1L, 2019, 05, 28, true, false, Arrays.asList(butter, meal));
     private static final OrderDto secondOrder = new OrderDto(2L, 2019, 05, 31, false, false, Arrays.asList(socks, tshirt));
 
-    @RequestMapping(method = RequestMethod.GET, value = "getOrders")
+    @GetMapping(path = "getOrders")
     public List<OrderDto> getOrders() {
         return new ArrayList<>(Arrays.asList(firstOrder, secondOrder));
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "createOrder", consumes = APPLICATION_JSON_VALUE)
+    @PostMapping(path = "createOrder", consumes = APPLICATION_JSON_VALUE)
     public void createOrder() {
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "getOrder")
+    @GetMapping(path = "getOrder")
     public OrderDto getOrder(@RequestParam Long orderId){
         return new OrderDto(1L, 2019, 03, 03, true, true, new ArrayList<ProductDto>());
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "updateOrder", consumes = APPLICATION_JSON_VALUE)
+    @PutMapping(path = "updateOrder", consumes = APPLICATION_JSON_VALUE)
     public OrderDto updateOrder(@RequestBody OrderDto orderDto) {
         return new OrderDto(1L, 2019, 03, 03, false, false, new ArrayList<ProductDto>());
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "deleteOrder")
+    @DeleteMapping(path = "deleteOrder")
     public void deleteOrder(Long orderId){
     }
 
