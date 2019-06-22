@@ -58,7 +58,7 @@ public class ProductMapperTest {
     @Test
     public void mapToProduct() {
         groupRepository.save(group);
-        ProductDto productDto11 = new ProductDto("product1", "description1",1.99, group.getId().toString());
-        Assert.assertEquals(product1.getId(), productMapper.mapToProduct(productDto11).getId());
+        ProductDto productDto11 = new ProductDto("product1", "description1",1.99, String.valueOf(group.getId()));
+        Assert.assertThat(product1, sameBeanAs(productMapper.mapToProduct(productDto11)));
     }
 }

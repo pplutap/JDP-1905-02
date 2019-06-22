@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.mapper;
 
+import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.ProductDto;
 import com.kodilla.ecommercee.repository.GroupRepository;
@@ -42,8 +43,9 @@ public class ProductMapper {
         if(productDto.getId() != null){
             return productRepository.getOne(productDto.getId());
         } else {
+            Group group = groupRepository.findById(new Long(productDto.getGroupId())).get();
             return new Product(productDto.getName(), productDto.getDescription()
-                    , productDto.getPrice(), groupRepository.getOne(Long.valueOf(productDto.getGroupId())));
+                    , productDto.getPrice(), group);
         }
 
     }

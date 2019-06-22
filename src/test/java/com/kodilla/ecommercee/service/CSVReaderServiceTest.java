@@ -4,6 +4,7 @@ import com.kodilla.ecommercee.controller.ProductController;
 import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.ProductDto;
+import com.kodilla.ecommercee.repository.GroupRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +28,7 @@ public class CSVReaderServiceTest {
     private ProductController productController;
 
     @Autowired
-    private GroupService groupService;
+    private GroupRepository groupRepository;
 
     @Autowired
     private CSVReaderService csvReaderService;
@@ -49,7 +50,7 @@ public class CSVReaderServiceTest {
     public void saveProductFromList()  {
         //Given
         Group group = new Group("test group");
-        groupService.saveGroup(group);
+        groupRepository.save(group);
         List<ProductDto> productDtoList = csvReaderService.CSVToBeanList(resourceFile);
 
         //When
