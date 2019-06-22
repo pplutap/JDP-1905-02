@@ -1,6 +1,7 @@
 package com.kodilla.ecommercee.controller;
 
 import com.google.gson.Gson;
+import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.ProductDto;
 import com.kodilla.ecommercee.mapper.ProductMapper;
@@ -25,8 +26,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(ProductController.class)
 public class ProductControllerTest {
 
-    private final static Product product = new Product("product", "test product", 9.99);
-    private final static ProductDto productDto = new ProductDto("product", "test product", 9.99);
+    private final static Group group = new Group("test group");
+    private final static Product product = new Product("product", "test product", 9.99, group);
+    private final static ProductDto productDto = new ProductDto("product", "test product", 9.99, "1");
     private static Gson gson = new Gson();
     private final static String jsonContent = gson.toJson(productDto);
 
