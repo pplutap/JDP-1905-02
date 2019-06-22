@@ -52,15 +52,23 @@ public class CSVReaderServiceTest {
         Group group = new Group("test group");
         groupRepository.save(group);
         List<ProductDto> productDtoList = csvReaderService.CSVToBeanList(resourceFile);
+        for (ProductDto productDto: productDtoList) {
+            productDto.setGroupId(String.valueOf(group.getId()));
+        }
 
         //When
-        productController.createProductFromList(productDtoList);
-        List<ProductDto> savedProductsList = productController.getProducts();
-
+        List<ProductDto> savedProductsList = productController.createProductFromList(productDtoList);
 
         //Then
-       Assert.assertTrue(productDtoList.equals(savedProductsList));
-       Assert.assertEquals(4, savedProductsList.size());
+        for (ProductDto product:savedProductsList) {
+            System.out.println(product);
+        }
+
+        for (ProductDto product:productDtoList) {
+            System.out.println(product);
+        }
+        Assert.assertTrue(productDtoList.equals(savedProductsList));
+        Assert.assertEquals(4, savedProductsList.size());
     }
 
 

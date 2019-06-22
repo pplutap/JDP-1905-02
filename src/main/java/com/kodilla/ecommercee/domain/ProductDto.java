@@ -74,4 +74,14 @@ public class ProductDto {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "ProductDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", groupId='" + groupId + '\'' +
+                '}';
+    }
 }
