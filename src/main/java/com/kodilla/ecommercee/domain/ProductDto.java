@@ -3,12 +3,16 @@ package com.kodilla.ecommercee.domain;
 import com.opencsv.bean.CsvBindByPosition;
 
 public class ProductDto {
+
+    private  Long id;
     @CsvBindByPosition(position = 0, required = true)
     private String name;
     @CsvBindByPosition(position = 1, required = true)
     private String description;
     @CsvBindByPosition(position = 2, required = true)
     private double price;
+
+    private Long groupId;
 
     public ProductDto() {}
 
@@ -30,6 +34,21 @@ public class ProductDto {
         return price;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public Long getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     @Override
     public boolean equals(Object o) {
