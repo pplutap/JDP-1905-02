@@ -6,6 +6,9 @@ import com.kodilla.ecommercee.mapper.UserMapper;
 import com.kodilla.ecommercee.service.TokenService;
 import com.kodilla.ecommercee.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -29,11 +32,12 @@ public class UserController {
         service.saveUser(userMapper.mapToUser(userDto));
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "blockingUser")
+
     public UserDto blockingUser(@RequestParam Long userId) {
-        UserDto userDto = userMapper.mapToUserDto(service.getUser(userId));
-        userDto.blockUser();
-        return userMapper.mapToUserDto(service.saveUser(userMapper.mapToUser(userDto)));
+        System.out.println("PRZED MODYFIKACJA: " + service.getUser(userId).getStatus());
+        service.blockUser(userId);
+        System.out.println("PO MODYFIKACJA: " + service.getUser(userId).getStatus());
+        return userMapper.mapToUserDto(service.getUser(userId));
     }
 
 

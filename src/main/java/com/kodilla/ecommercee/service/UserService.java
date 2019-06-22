@@ -3,6 +3,7 @@ package com.kodilla.ecommercee.service;
 import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -24,6 +25,12 @@ public class UserService {
 
     public User saveUser(final User product) {
         return repository.save(product);
+    }
+
+
+    public void blockUser(final Long id){
+        int modfiedRecords = repository.updateUserSetStatusForId("BLOCKED", id);
+        System.out.println("blodkowane rekordy: " + modfiedRecords);
     }
 
     @Transactional
