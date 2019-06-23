@@ -7,10 +7,11 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class OrderService {
+    private Long userId = null;
+
     @Autowired
     private OrderRepository repository;
 
@@ -22,12 +23,17 @@ public class OrderService {
         return repository.getOne(id);
     }
 
-    public Order saveOrder(final Order order) {
+    public Order createOrder() {
+        Order order = new Order();
         return repository.save(order);
     }
 
     @Transactional
     public void deleteOrder(final Long id){
         repository.deleteById(id);
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

@@ -5,6 +5,7 @@ import com.kodilla.ecommercee.domain.OrderDto;
 import com.kodilla.ecommercee.mapper.OrderMapper;
 import com.kodilla.ecommercee.service.CartService;
 import com.kodilla.ecommercee.service.OrderService;
+import com.kodilla.ecommercee.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,6 +36,9 @@ public class OrderController {
     private CartService cartService;
 >>>>>>> start
 
+    @Autowired
+    private UserService userService;
+
     @RequestMapping(method = RequestMethod.GET, value = "getOrders")
     public List<OrderDto> getOrders() {
         return orderMapper.mapToOrderDtoList(orderService.getAllOrders());
@@ -42,7 +46,8 @@ public class OrderController {
 
     @RequestMapping(method = RequestMethod.POST, value = "createOrder", consumes = APPLICATION_JSON_VALUE)
     public void createOrder(@RequestParam Long cartId) {
-        orderService.saveOrder(orderMapper.mapCartToOrder(cartService.getCart(cartId)));
+        orderService.setUserId(userService.getUserId());
+        orderService.setCart(cartService.getCart());
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getOrder")
