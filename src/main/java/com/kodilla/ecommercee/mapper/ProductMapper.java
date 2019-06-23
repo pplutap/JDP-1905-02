@@ -1,7 +1,9 @@
 package com.kodilla.ecommercee.mapper;
 
+import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.ProductDto;
+import com.kodilla.ecommercee.repository.GroupRepository;
 import com.kodilla.ecommercee.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,29 +18,24 @@ public class ProductMapper {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private GroupRepository groupRepository;
+
     public List<ProductDto> mapToProductDtoList(final List<Product> products) {
         List<ProductDto> productsDto = new ArrayList<>();
         for (Product product : products) {
-            ProductDto productDto = new ProductDto(product.getName(), product.getDescription(), product.getPrice());
+            ProductDto productDto = new ProductDto(product.getName(), product.getDescription()
+                    , product.getPrice(), String.valueOf(product.getGroup().getId()));
             productDto.setId(product.getId());
-            try{
-                productDto.setId(product.getGroup().getId());
-            }catch (NullPointerException e) {
-
-            }
             productsDto.add(productDto);
         }
         return productsDto;
     }
 
     public ProductDto mapToProductDto(Product product) {
-        ProductDto productDto = new ProductDto(product.getName(), product.getDescription(), product.getPrice());
+        ProductDto productDto = new ProductDto(product.getName(), product.getDescription()
+                , product.getPrice(), String.valueOf(product.getGroup().getId()));
         productDto.setId(product.getId());
-        try{
-            productDto.setId(product.getGroup().getId());
-        }catch (NullPointerException e) {
-
-        }
         return productDto;
     }
 
@@ -46,7 +43,9 @@ public class ProductMapper {
         if(productDto.getId() != null){
             return productRepository.getOne(productDto.getId());
         } else {
-            return new Product(productDto.getName(), productDto.getDescription(), productDto.getPrice());
+            Group group = groupRepository.findById(new Long(productDto.getGroupId())).get();
+            return new Product(productDto.getName(), productDto.getDescription()
+                    , productDto.getPrice(), group);
         }
 
     }

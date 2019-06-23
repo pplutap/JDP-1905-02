@@ -1,6 +1,7 @@
 package com.kodilla.ecommercee;
 
 import com.kodilla.ecommercee.domain.Cart;
+import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.repository.CartRepository;
 import org.junit.Assert;
@@ -27,8 +28,9 @@ public class CartCrudTestSuite {
     public void testCartSave() {
 
         //Given
-        Product product1 = new Product("cereals","chocolate",8.99);
-        Product product2 = new Product("milk","cow-milk",2.99);
+        Group group = new Group("test group");
+        Product product1 = new Product("cereals","chocolate",8.99, group);
+        Product product2 = new Product("milk","cow-milk",2.99, group);
         List<Product> productsFirstCart = new ArrayList<>();
         Cart cartFirst = new Cart(productsFirstCart);
         cartFirst.getProducts().add(product1);
@@ -48,8 +50,9 @@ public class CartCrudTestSuite {
     public void testCartUpdate(){
 
         //Given
-        Product product1 = new Product("cereals","chocolate",8.99);
-        Product product2 = new Product("milk","cow-milk",2.99);
+        Group group = new Group("test group");
+        Product product1 = new Product("cereals","chocolate",8.99, group);
+        Product product2 = new Product("milk","cow-milk",2.99, group);
         List<Product> productsFirstCart = new ArrayList<>();
         Cart cartFirst = new Cart(productsFirstCart);
         cartFirst.getProducts().add(product1);
@@ -59,7 +62,7 @@ public class CartCrudTestSuite {
         Cart cartToUpdate = cartRepository.getOne(id);
 
         //When
-        cartToUpdate.getProducts().add(new Product("strawberries","extra-sweet",7.00));
+        cartToUpdate.getProducts().add(new Product("strawberries","extra-sweet",7.00, group));
         cartRepository.save(cartToUpdate);
         id = cartToUpdate.getId();
         Cart cartUpdated = cartRepository.getOne(id);
@@ -73,15 +76,16 @@ public class CartCrudTestSuite {
     public void testCartDelete(){
 
         //Given
-        Product product1 = new Product("cereals","chocolate",8.99);
-        Product product2 = new Product("milk","cow-milk",2.99);
+        Group group = new Group("test group");
+        Product product1 = new Product("cereals","chocolate",8.99, group);
+        Product product2 = new Product("milk","cow-milk",2.99, group);
         List<Product> productsFirstCart = new ArrayList<>();
         Cart cartFirst = new Cart(productsFirstCart);
         cartFirst.getProducts().add(product1);
         cartFirst.getProducts().add(product2);
 
-        Product product3 = new Product("bread","grandma-bread",3.90);
-        Product product4 = new Product("butter","from happy cows",7.90);
+        Product product3 = new Product("bread","grandma-bread",3.90, group);
+        Product product4 = new Product("butter","from happy cows",7.90, group);
         List<Product> productsSecondtCart = new ArrayList<>();
         Cart cartSecond = new Cart(productsSecondtCart);
         cartSecond.getProducts().add(product3);

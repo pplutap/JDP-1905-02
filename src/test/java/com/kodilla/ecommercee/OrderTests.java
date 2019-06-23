@@ -1,13 +1,7 @@
 package com.kodilla.ecommercee;
 
-import com.kodilla.ecommercee.domain.Cart;
-import com.kodilla.ecommercee.domain.Order;
-import com.kodilla.ecommercee.domain.Product;
-import com.kodilla.ecommercee.domain.User;
-import com.kodilla.ecommercee.repository.CartRepository;
-import com.kodilla.ecommercee.repository.OrderRepository;
-import com.kodilla.ecommercee.repository.ProductRepository;
-import com.kodilla.ecommercee.repository.UserRepository;
+import com.kodilla.ecommercee.domain.*;
+import com.kodilla.ecommercee.repository.*;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,7 +34,8 @@ public class OrderTests {
     public void testSaveOrder() {
 
         //Given
-        Product product = new Product("Altana SunSet", "Altana ogrodowa ...", 999.90);
+        Group group = new Group("test group");
+        Product product = new Product("Altana SunSet", "Altana ogrodowa ...", 999.90, group);
         productRepository.save(product);
         List<Product> productList = new ArrayList<>();
         productList.add(product);
@@ -67,7 +62,8 @@ public class OrderTests {
     public void testUpdateOrder() {
 
         //Given
-        Product product = new Product("Altana SunSet", "Altana ogrodowa ...", 999.90);
+        Group group = new Group("test group");
+        Product product = new Product("Altana SunSet", "Altana ogrodowa ...", 999.90, group);
         productRepository.save(product);
         List<Product> productList = new ArrayList<>();
         productList.add(product);
@@ -99,9 +95,10 @@ public class OrderTests {
     public void deleteProduct() {
 
         //Given
-        Product product1 = new Product("Altana SunSet", "Altana ogrodowa ...", 999.90);
-        Product product2 = new Product("Krzesło Romea", "Krzesło składane z drewna ...", 66.90);
-        Product product3 = new Product("Wkrętarka udarowa", "Wkrętarka marki Hilti ...", 3980.90);
+        Group group = new Group("test group");
+        Product product1 = new Product("Altana SunSet", "Altana ogrodowa ...", 999.90, group);
+        Product product2 = new Product("Krzesło Romea", "Krzesło składane z drewna ...", 66.90, group);
+        Product product3 = new Product("Wkrętarka udarowa", "Wkrętarka marki Hilti ...", 3980.90, group);
         productRepository.save(product1);
         productRepository.save(product2);
         productRepository.save(product3);
@@ -154,9 +151,10 @@ public class OrderTests {
     public void getOrder() {
 
         //Given
-        Product product1 = new Product("Altana SunSet", "Altana ogrodowa ...", 999.90);
-        Product product2 = new Product("Krzesło Romea", "Krzesło składane z drewna ...", 66.90);
-        Product product3 = new Product("Wkrętarka udarowa", "Wkrętarka marki Hilti ...", 3980.90);
+        Group group = new Group("test group");
+        Product product1 = new Product("Altana SunSet", "Altana ogrodowa ...", 999.90, group);
+        Product product2 = new Product("Krzesło Romea", "Krzesło składane z drewna ...", 66.90, group);
+        Product product3 = new Product("Wkrętarka udarowa", "Wkrętarka marki Hilti ...", 3980.90, group);
         productRepository.save(product1);
         productRepository.save(product2);
         productRepository.save(product3);
@@ -209,9 +207,10 @@ public class OrderTests {
     public void getOrders() {
 
         //Given
-        Product product1 = new Product("Altana SunSet", "Altana ogrodowa ...", 999.90);
-        Product product2 = new Product("Krzesło Romea", "Krzesło składane z drewna ...", 66.90);
-        Product product3 = new Product("Wkrętarka udarowa", "Wkrętarka marki Hilti ...", 3980.90);
+        Group group = new Group("test group");
+        Product product1 = new Product("Altana SunSet", "Altana ogrodowa ...", 999.90, group);
+        Product product2 = new Product("Krzesło Romea", "Krzesło składane z drewna ...", 66.90, group);
+        Product product3 = new Product("Wkrętarka udarowa", "Wkrętarka marki Hilti ...", 3980.90, group);
         productRepository.save(product1);
         productRepository.save(product2);
         productRepository.save(product3);

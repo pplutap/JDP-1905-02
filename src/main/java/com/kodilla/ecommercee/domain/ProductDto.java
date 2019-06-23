@@ -11,15 +11,16 @@ public class ProductDto {
     private String description;
     @CsvBindByPosition(position = 2, required = true)
     private double price;
-
-    private Long groupId;
+    @CsvBindByPosition(position = 3, required = true)
+    private String groupId;
 
     public ProductDto() {}
 
-    public ProductDto(String name, String description, double price) {
+    public ProductDto(String name, String description, double price, String groupId) {
         this.name = name;
         this.description = description;
         this.price = price;
+        this.groupId = groupId;
     }
 
     public String getName() {
@@ -38,11 +39,11 @@ public class ProductDto {
         return id;
     }
 
-    public Long getGroupId() {
+    public String getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(Long groupId) {
+    public void setGroupId(String groupId) {
         this.groupId = groupId;
     }
 
@@ -71,5 +72,16 @@ public class ProductDto {
         temp = Double.doubleToLongBits(price);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", groupId='" + groupId + '\'' +
+                '}';
     }
 }

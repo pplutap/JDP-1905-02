@@ -1,8 +1,10 @@
 package com.kodilla.ecommercee.service;
 
 import com.kodilla.ecommercee.controller.ProductController;
+import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.ProductDto;
+import com.kodilla.ecommercee.repository.GroupRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,6 +28,9 @@ public class CSVReaderServiceTest {
     private ProductController productController;
 
     @Autowired
+    private GroupRepository groupRepository;
+
+    @Autowired
     private CSVReaderService csvReaderService;
 
     String resourceFile = "src/test/resources/products.csv";
@@ -44,16 +49,26 @@ public class CSVReaderServiceTest {
     @Test
     public void saveProductFromList()  {
         //Given
+        Group group = new Group("test group");
+        groupRepository.save(group);
         List<ProductDto> productDtoList = csvReaderService.CSVToBeanList(resourceFile);
+        for (ProductDto productDto: productDtoList) {
+            productDto.setGroupId(String.valueOf(group.getId()));
+        }
 
         //When
-        productController.createProductFromList(productDtoList);
-        List<ProductDto> savedProductsList = productController.getProducts();
-
+        List<ProductDto> savedProductsList = productController.createProductFromList(productDtoList);
 
         //Then
-       Assert.assertTrue(productDtoList.equals(savedProductsList));
-       Assert.assertEquals(4, savedProductsList.size());
+        for (ProductDto product:savedProductsList) {
+            System.out.println(product);
+        }
+
+        for (ProductDto product:productDtoList) {
+            System.out.println(product);
+        }
+        Assert.assertTrue(productDtoList.equals(savedProductsList));
+        Assert.assertEquals(4, savedProductsList.size());
     }
 
 

@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee;
 
+import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.repository.ProductRepository;
 import org.junit.Assert;
@@ -11,7 +12,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 
-
 @Transactional
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -20,12 +20,13 @@ public class ProductTests {
     @Autowired
     private ProductRepository productRepository;
 
+
     @Test
     public void testSaveProduct() {
 
         //Given
-        Product product = new Product("Altana SunSet", "Altana ogrodowa ...", 999.90);
-
+        Group group = new Group("test group");
+        Product product = new Product("Altana SunSet", "Altana ogrodowa ...", 999.90, group);
         //When
         productRepository.save(product);
         Long id = product.getId();
@@ -40,7 +41,8 @@ public class ProductTests {
     public void testUpdateProduct() {
 
         //Given
-        Product product = new Product("Altana SunSet", "Altana ogrodowa ...", 999.90);
+        Group group = new Group("test group");
+        Product product = new Product("Altana SunSet", "Altana ogrodowa ...", 999.90, group);
         productRepository.save(product);
         Long id = product.getId();
         Product productToUpdate = productRepository.getOne(id);
@@ -61,9 +63,10 @@ public class ProductTests {
     public void deleteProduct() {
 
         //Given
-        Product product1 = new Product("Altana SunSet", "Altana ogrodowa ...", 999.90);
-        Product product2 = new Product("Krzesło Romea", "Krzesło składane z drewna ...", 66.90);
-        Product product3 = new Product("Wkrętarka udarowa", "Wkrętarka marki Hilti ...", 3980.90);
+        Group group = new Group("test group");
+        Product product1 = new Product("Altana SunSet", "Altana ogrodowa ...", 999.90, group);
+        Product product2 = new Product("Krzesło Romea", "Krzesło składane z drewna ...", 66.90, group);
+        Product product3 = new Product("Wkrętarka udarowa", "Wkrętarka marki Hilti ...", 3980.90, group);
         productRepository.save(product1);
         productRepository.save(product2);
         productRepository.save(product3);
@@ -82,7 +85,8 @@ public class ProductTests {
     public void getProduct() {
 
         //Given
-        Product product = new Product("Altana SunSet", "Altana ogrodowa ...", 999.90);
+        Group group = new Group("test group");
+        Product product = new Product("Altana SunSet", "Altana ogrodowa ...", 999.90, group);
         productRepository.save(product);
 
         //When
@@ -103,9 +107,10 @@ public class ProductTests {
     public void getProducts() {
 
         //Given
-        Product product1 = new Product("Altana SunSet", "Altana ogrodowa ...", 999.90);
-        Product product2 = new Product("Krzesło Romea", "Krzesło składane z drewna ...", 66.90);
-        Product product3 = new Product("Wkrętarka udarowa", "Wkrętarka marki Hilti ...", 3980.90);
+        Group group = new Group("test group");
+        Product product1 = new Product("Altana SunSet", "Altana ogrodowa ...", 999.90, group);
+        Product product2 = new Product("Krzesło Romea", "Krzesło składane z drewna ...", 66.90, group);
+        Product product3 = new Product("Wkrętarka udarowa", "Wkrętarka marki Hilti ...", 3980.90, group);
         int productCounterBeforeSave = productRepository.findAll().size();
         productRepository.save(product1);
         productRepository.save(product2);
