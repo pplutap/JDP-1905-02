@@ -74,9 +74,7 @@ public class UserControllerTest {
         when(service.saveUser(ArgumentMatchers.any())).thenReturn(user);
 
         mockMvc.perform(MockMvcRequestBuilders.put("/superShop/blockingUser?userId=1")
-                .contentType(MediaType.APPLICATION_JSON)
-                .characterEncoding("UTF-8")
-                .content(String.valueOf(userId)))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
@@ -86,9 +84,7 @@ public class UserControllerTest {
         when(service.saveUser(ArgumentMatchers.any())).thenReturn(user);
 
         mockMvc.perform(MockMvcRequestBuilders.put("/superShop/generateUserKey?userId=1")
-                .contentType(MediaType.APPLICATION_JSON)
-                .characterEncoding("UTF-8")
-                .content(String.valueOf(userId)))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
