@@ -17,7 +17,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping("/superShop")
 public class CartController {
-
+  
     @Autowired
     private CartService cartService;
 
@@ -28,28 +28,28 @@ public class CartController {
     private ProductMapper productMapper;
 
 
-    @RequestMapping(method = RequestMethod.POST, value = "createEmptyCart")
+    @PostMapping(path = "createEmptyCart")
     public Long createEmptyCart(){
         return cartService.createNewCart();
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "getProductsFromTheCart")
+    @GetMapping(path = "getProductsFromTheCart")
     public List<ProductDto> getProductsFromTheCart(@RequestParam Long cartId){
         return productMapper.mapToProductDtoList(cartService.getProductsFromTheCart(cartId));
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "addProductsToTheCartSelectedById", consumes = APPLICATION_JSON_VALUE)
+    @PostMapping(path = "addProductsToTheCartSelectedById", consumes = APPLICATION_JSON_VALUE)
     public List<ProductDto> addProductsToTheCartSelectedById(@RequestBody CartProductAdderDto cartProductAdderDto){
         return productMapper.mapToProductDtoList(cartService.addProductsToCart(cartMapper.mapToIdFromCartAdderDto(cartProductAdderDto)
                 , cartMapper.mapToProductsListFromCartAdderDto(cartProductAdderDto)));
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "deleteProductByIdInGivenCardById", consumes = APPLICATION_JSON_VALUE)
+    @DeleteMapping(path = "deleteProductByIdInGivenCardById", consumes = APPLICATION_JSON_VALUE)
     public void deleteProductByIdInGivenCardById(@RequestBody CartProductDeleterDto cartProductDeleterDto){
         cartService.deleteProductByIdInGivenCardById(cartProductDeleterDto.getId(), cartProductDeleterDto.getProductId());
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "placeOrderByCartId")
+    @PutMapping(path = "placeOrderByCartId")
     public Long placeOrderByCartId(@RequestParam Long userId, @RequestParam Long cartId){
         return cartService.createNewOrder(userId, cartId);
     }

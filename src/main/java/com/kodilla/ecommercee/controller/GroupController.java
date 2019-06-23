@@ -23,22 +23,22 @@ public class GroupController {
     @Autowired
     private GroupService groupService;
 
-    @RequestMapping(method = RequestMethod.GET, value = "getGroups")
+    @GetMapping(path = "getGroups")
     public List<GroupDto> getGroups() {
         return groupMapper.mapToGroupDtoList(groupService.getAllGroups());
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "createGroup", consumes = APPLICATION_JSON_VALUE)
+    @PostMapping(path = "createGroup", consumes = APPLICATION_JSON_VALUE)
     public void createGroup(@RequestBody GroupDto groupDto){
-            groupService.saveGroup(groupMapper.mapToGroup(groupDto));
-        }
-        
-    @RequestMapping(method = RequestMethod.GET, value = "getGroup")
+        groupService.saveGroup(groupMapper.mapToGroup(groupDto));
+    }
+
+    @GetMapping(path = "getGroup")
     public GroupDto getGroup(@RequestParam Long groupId){
         return groupMapper.mapToGroupDto(groupService.getGroup(groupId));
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "updateGroup", consumes = APPLICATION_JSON_VALUE)
+    @PutMapping(path = "updateGroup", consumes = APPLICATION_JSON_VALUE)
     public GroupDto updateGroup(@RequestBody GroupDto groupDto){
         return groupMapper.mapToGroupDto(groupService.saveGroup(groupMapper.mapToGroup(groupDto)));
     }
