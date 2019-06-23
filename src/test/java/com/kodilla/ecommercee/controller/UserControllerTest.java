@@ -1,84 +1,95 @@
 package com.kodilla.ecommercee.controller;
 
 
+
+import com.google.gson.Gson;
 import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.domain.UserDto;
+import com.kodilla.ecommercee.mapper.UserMapper;
 import com.kodilla.ecommercee.repository.UserRepository;
+import com.kodilla.ecommercee.service.TokenService;
+import com.kodilla.ecommercee.service.UserService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @RunWith(SpringRunner.class)
-@SpringBootTest
-@Transactional
+@WebMvcTest(UserController.class)
+
 public class UserControllerTest {
 
-    private static final String USER_NAME_KOWALSKI = "TEST 4";
+    private final static User user = new User("KOWALSKI JAN", "UNBLOCKED", 12345L);
+    private final static UserDto userDto = new UserDto("KOWALSKI JAN", "UNBLOCKED", 12345L);
+    private final static Long userId = 300L;
+    private static Gson gson = new Gson();
+    private final static String jsonContent = gson.toJson(userDto);
+
+
+
+    @MockBean
+    private UserService service;
+
+    @MockBean
+    private UserMapper userMapper;
+
+    @MockBean
+    private TokenService tokenService;
 
     @Autowired
-    private UserController userController;
-
-    @Autowired
-    private UserRepository userRepository;
-
-
+    private MockMvc mockMvc;
 
     @Test
-    public void createUser() {
-        //Given
-        UserDto userDto = new UserDto(USER_NAME_KOWALSKI);
+    public void createUserTest() throws Exception {
+        when(userMapper.mapToUserDto(ArgumentMatchers.any())).thenReturn(userDto);
+        when(service.saveUser(ArgumentMatchers.any())).thenReturn(user);
+        when(tokenService.generateRandomKey()).thenReturn(12345L);
 
-        //When
-        int usersNumber = userRepository.findAll().size();
-        userController.createUser(userDto);
-
-        //Then
-        Assert.assertEquals(++usersNumber, userRepository.findAll().size());
-
-    }
-
-    @Test
-    public void blockUser() {
-        //Given
-        UserDto userDto = new UserDto(USER_NAME_KOWALSKI);
-        userController.createUser(userDto);
-
-        //When
-        List<User> users = userRepository.findAll();
-        User user = users.get(users.size()-1);
-        Long userId = user.getId();
-        UserDto userDtoBlocked = userController.blockingUser(userId);
-
-        //Then
-        Assert.assertEquals("BLOCKED", userDtoBlocked.getStatus());
-
-    }
-
-    @Test
-    public void setKeyForUser() {
-        //Given
-        UserDto userDto = new UserDto(USER_NAME_KOWALSKI);
-        userController.createUser(userDto);
-
-        //When
-        List<User> users = userRepository.findAll();
-        User user = users.get(users.size()-1);
-        Long userId = user.getId();
-        UserDto userDtoWithKey = userController.generatingKeyOfFourNumbersValidForOneHour(userId);
-
-        //Then
-        Assert.assertNotNull(userDtoWithKey.getUserKey());
-
+        mockMvc.perform(post("/superShop/createUser")
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8")
+                .content(jsonContent))
+                .andExpect(status().isOk());
     }
 
 
+    @Test
+    public void blockingUserTest() throws Exception{
+        when(userMapper.mapToUserDto(ArgumentMatchers.any())).thenReturn(userDto);
+        when(service.saveUser(ArgumentMatchers.any())).thenReturn(user);
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/superShop/blockingUser?userId=1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8")
+                .content(String.valueOf(userId)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void generateUserKeyTest() throws Exception{
+        when(userMapper.mapToUserDto(ArgumentMatchers.any())).thenReturn(userDto);
+        when(service.saveUser(ArgumentMatchers.any())).thenReturn(user);
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/superShop/generateUserKey?userId=1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8")
+                .content(String.valueOf(userId)))
+                .andExpect(status().isOk());
+    }
 
 }
