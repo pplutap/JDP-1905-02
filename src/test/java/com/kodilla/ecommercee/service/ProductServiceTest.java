@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.service;
 
+import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.ProductDto;
 import com.kodilla.ecommercee.repository.ProductRepository;
@@ -31,8 +32,9 @@ public class ProductServiceTest {
     @Test
     public void getAllProductsAndSave()  {
         //Given
-        Product product1 = new Product("product1", "test product1", 9.99);
-        Product product2 = new Product("product2", "test product2", 9.99);
+        Group group = new Group("test group");
+        Product product1 = new Product("product1", "test product1", 9.99, group);
+        Product product2 = new Product("product2", "test product2", 9.99, group);
 
         //When
         productService.saveProduct(product1);
@@ -51,7 +53,8 @@ public class ProductServiceTest {
     @Test
     public void getProduct() {
         //Given
-        Product product = new Product("product", "test product", 9.99);
+        Group group = new Group("test group");
+        Product product = new Product("product", "test product", 9.99, group);
         productService.saveProduct(product);
 
         //When
@@ -67,7 +70,8 @@ public class ProductServiceTest {
     @Test
     public void deleteProduct() {
         //Given
-        Product product = new Product("product", "test product", 9.99);
+        Group group = new Group("test group");
+        Product product = new Product("product", "test product", 9.99, group);
         productService.saveProduct(product);
         Product requestedProduct = productService.getProduct(product.getId());
         long productCounterBeforeDeletion = productRepository.count();

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -33,8 +34,8 @@ public class ProductController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createProduct", consumes = APPLICATION_JSON_VALUE)
-    public void createProduct(@RequestBody ProductDto productDto){
-        service.saveProduct(productMapper.mapToProduct(productDto));
+    public ProductDto createProduct(@RequestBody ProductDto productDto){
+        return productMapper.mapToProductDto(service.saveProduct(productMapper.mapToProduct(productDto)));
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateProduct", consumes = APPLICATION_JSON_VALUE)
@@ -47,9 +48,10 @@ public class ProductController {
         service.deleteProduct(productId);
     }
 
-    public void createProductFromList(List<ProductDto> productDtoList){
-        for(ProductDto productDto : productDtoList){
-            createProduct(productDto);
-        }
+    public List<ProductDto> createProductFromList(List<ProductDto> productDtoList){
+        List<ProductDto> savedList = productDtoList.stream()
+                .map(p -> createProduct(p))
+                .collect(Collectors.toList());
+        return savedList;
     }
 }
