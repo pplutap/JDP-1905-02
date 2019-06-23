@@ -1,6 +1,9 @@
 package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.domain.GroupDto;
+import com.kodilla.ecommercee.mapper.GroupMapper;
+import com.kodilla.ecommercee.service.GroupService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -13,26 +16,30 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping("/superShop")
 public class GroupController {
-    private static final GroupDto food = new GroupDto(1L, "Food");
-    private static final GroupDto clothes = new GroupDto(2L, "Clothes");
+
+    @Autowired
+    private GroupMapper groupMapper;
+
+    @Autowired
+    private GroupService groupService;
 
     @RequestMapping(method = RequestMethod.GET, value = "getGroups")
-    public List<GroupDto> getGroups(){
-        return new ArrayList<>(Arrays.asList(food, clothes));
+    public List<GroupDto> getGroups() {
+        return groupMapper.mapToGroupDtoList(groupService.getAllGroups());
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createGroup", consumes = APPLICATION_JSON_VALUE)
     public void createGroup(@RequestBody GroupDto groupDto){
-
-    }
-
+            groupService.saveGroup(groupMapper.mapToGroup(groupDto));
+        }
+        
     @RequestMapping(method = RequestMethod.GET, value = "getGroup")
     public GroupDto getGroup(@RequestParam Long groupId){
-        return food;
+        return groupMapper.mapToGroupDto(groupService.getGroup(groupId));
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateGroup", consumes = APPLICATION_JSON_VALUE)
     public GroupDto updateGroup(@RequestBody GroupDto groupDto){
-        return clothes;
+        return groupMapper.mapToGroupDto(groupService.saveGroup(groupMapper.mapToGroup(groupDto)));
     }
 }

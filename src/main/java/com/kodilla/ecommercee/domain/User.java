@@ -26,10 +26,14 @@ public class User {
 
     public User(){}
 
+    public User(String username, String status, Long userKey) {
+        this.username = username;
+        this.status = status;
+        this.userKey = userKey;
+    }
+
     public User(String username) {
         this.username = username;
-        TokenService tokenService = new TokenService();
-        this.userKey=tokenService.generateRandomKey();
         this.status = "UNBLOCKED";
     }
 
