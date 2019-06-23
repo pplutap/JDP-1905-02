@@ -14,14 +14,13 @@ public class TokenService {
     public Long generateRandomKey(){
 
         int keySize = 5;
-        String key = "";
+        String key = String.valueOf(randomGenerator.nextInt(8) +1);
 
-        for (int i=0; i<keySize; i++) {
+        for (int i=1; i<keySize; i++) {
             int generatedNumber = randomGenerator.nextInt(9);
             key += generatedNumber;
-
         }
-        return Long.getLong(key);
+        return Long.parseLong(key);
     }
 
 }
