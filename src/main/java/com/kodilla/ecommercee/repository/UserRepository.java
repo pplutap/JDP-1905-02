@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 
-
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
@@ -18,6 +17,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Modifying
     @Query("update User u set u.status = :status where u.id=:id")
     int updateUserSetStatusForId(@Param("status") String status, @Param("id") Long id);
+
+    @Modifying
+    @Query("update User u set u.userKey = :userKey where u.id=:id")
+    int updateUserSetUserKeyForId(@Param("userKey") Long userKey, @Param("id") Long id);
 
 
 

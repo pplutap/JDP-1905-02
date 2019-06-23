@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -19,13 +21,15 @@ import java.util.List;
 @Transactional
 public class UserControllerTest {
 
-    private static final String USER_NAME_KOWALSKI = "KOWALSKI JAKUB";
+    private static final String USER_NAME_KOWALSKI = "TEST 4";
 
     @Autowired
     private UserController userController;
 
     @Autowired
     private UserRepository userRepository;
+
+
 
     @Test
     public void createUser() {

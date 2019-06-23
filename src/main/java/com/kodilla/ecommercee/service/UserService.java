@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +16,10 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     private UserRepository repository;
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
 
     public List<User> getAllUsers() {
         return repository.findAll();
@@ -27,10 +33,16 @@ public class UserService {
         return repository.save(product);
     }
 
-
     public void blockUser(final Long id){
-        int modfiedRecords = repository.updateUserSetStatusForId("BLOCKED", id);
-        System.out.println("blodkowane rekordy: " + modfiedRecords);
+        repository.updateUserSetStatusForId("BLOCKED", id);
+        User user = getUser(id);
+        entityManager.refresh(user);
+    }
+
+    public void setUserKey(final Long userKey, final Long id){
+        repository.updateUserSetUserKeyForId(userKey, id);
+        User user = getUser(id);
+        entityManager.refresh(user);
     }
 
     @Transactional

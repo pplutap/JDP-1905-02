@@ -5,11 +5,18 @@ import com.kodilla.ecommercee.domain.UserDto;
 import com.kodilla.ecommercee.mapper.UserMapper;
 import com.kodilla.ecommercee.service.TokenService;
 import com.kodilla.ecommercee.service.UserService;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transaction;
+import javax.transaction.Transactional;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -27,24 +34,21 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
+
     @RequestMapping(method = RequestMethod.POST, value = "createUser", consumes = APPLICATION_JSON_VALUE)
-    public void createUser(@RequestBody UserDto userDto) {
+    public void createUser(UserDto userDto) {
         service.saveUser(userMapper.mapToUser(userDto));
     }
 
-
+    @RequestMapping(method = RequestMethod.PUT, value = "blockingUser")
     public UserDto blockingUser(@RequestParam Long userId) {
-        System.out.println("PRZED MODYFIKACJA: " + service.getUser(userId).getStatus());
         service.blockUser(userId);
-        System.out.println("PO MODYFIKACJA: " + service.getUser(userId).getStatus());
         return userMapper.mapToUserDto(service.getUser(userId));
     }
 
-
     @RequestMapping(method = RequestMethod.PUT, value = "generateUserKey")
     public UserDto generatingKeyOfFourNumbersValidForOneHour(@RequestParam Long userId) {
-        UserDto userDto = userMapper.mapToUserDto(service.getUser(userId));
-        userDto.setUserKey(tokenService.generateRandomKey());
-        return userMapper.mapToUserDto(service.saveUser(userMapper.mapToUser(userDto)));
+        service.setUserKey(tokenService.generateRandomKey(), userId);
+        return userMapper.mapToUserDto(service.getUser(userId));
     }
 }
