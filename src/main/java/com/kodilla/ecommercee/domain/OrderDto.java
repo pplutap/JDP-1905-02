@@ -1,11 +1,13 @@
 package com.kodilla.ecommercee.domain;
 
+import java.util.List;
+
 public class OrderDto {
     private Long id;
-    private User user;
-    private Cart cart;
+    private String user;
+    private List<Long> cart;
 
-    public OrderDto(Long id, User user, Cart cart) {
+    public OrderDto(Long id, String user, List<Long> cart) {
         this.id = id;
         this.user = user;
         this.cart = cart;
@@ -15,11 +17,11 @@ public class OrderDto {
         return id;
     }
 
-    public User getUser() {
+    public String getUser() {
         return user;
     }
 
-    public Cart getCart() {
+    public List<Long> getCart() {
         return cart;
     }
 }

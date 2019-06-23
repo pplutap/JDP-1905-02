@@ -31,7 +31,7 @@ public class GroupController {
     @RequestMapping(method = RequestMethod.POST, value = "createGroup", consumes = APPLICATION_JSON_VALUE)
     public void createGroup(@RequestBody GroupDto groupDto){
             groupService.saveGroup(groupMapper.mapToGroup(groupDto));
-        }
+    }
         
     @RequestMapping(method = RequestMethod.GET, value = "getGroup")
     public GroupDto getGroup(@RequestParam Long groupId){

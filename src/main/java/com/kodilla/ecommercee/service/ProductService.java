@@ -19,7 +19,6 @@ public class ProductService {
 
     public Product getProduct(final Long id) {return repository.getOne(id);}
 
-
     public Product saveProduct(final Product product) {
         return repository.save(product);
     }

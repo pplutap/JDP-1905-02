@@ -4,6 +4,7 @@ import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.OrderDto;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,10 +12,13 @@ import java.util.stream.Collectors;
 public class OrderMapper {
     public List<OrderDto> mapToOrderDtoList(final List<Order> orders) {
         return orders.stream()
-                .map(o -> new OrderDto(o.getId(), o.getUser(), o.getCart())).collect(Collectors.toList());
+                .map(o -> new OrderDto(o.getId(), o.getUser().getUsername(),
+                        o.getCart().getProducts().stream().map(p -> p.getId())
+                                .collect(Collectors.toList()))).collect(Collectors.toList());
     }
 
     public OrderDto mapToOrderDto(Order order){
-        return new OrderDto(order.getId(), order.getUser(), order.getCart());
+        return new OrderDto(order.getId(), order.getUser().getUsername(),
+                order.getCart().getProducts().stream().map(p -> p.getId()).collect(Collectors.toList()));
     }
 }

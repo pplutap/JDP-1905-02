@@ -22,5 +22,4 @@ public class TokenService {
         }
         return Long.parseLong(key);
     }
-
 }

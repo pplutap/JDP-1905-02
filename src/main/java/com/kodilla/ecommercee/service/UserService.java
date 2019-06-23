@@ -3,14 +3,12 @@ package com.kodilla.ecommercee.service;
 import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -19,7 +17,6 @@ public class UserService {
 
     @PersistenceContext
     private EntityManager entityManager;
-
 
     public List<User> getAllUsers() {
         return repository.findAll();
