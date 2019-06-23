@@ -13,7 +13,10 @@ public class Cart {
     @Column(name= "CART_ID", unique = true)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,
+            targetEntity = Order.class,
+            mappedBy = "cart")
     @JoinColumn(name = "ORDER_ID")
     private Order order;
 

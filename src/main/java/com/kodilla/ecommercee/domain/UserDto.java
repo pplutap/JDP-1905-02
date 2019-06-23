@@ -21,6 +21,17 @@ public class UserDto {
         this.userKey = userKey;
     }
 
+    public UserDto(String username) {
+        this.username = username;
+        this.status = "UNBLOCKED";
+    }
+
+    public UserDto(String username, String status, Long userKey) {
+        this.username = username;
+        this.status = status;
+        this.userKey = userKey;
+    }
+
     public UserDto() {
     }
 
@@ -42,5 +53,13 @@ public class UserDto {
 
     public List<OrderDto> getOrders() {
         return orders;
+    }
+
+    public void blockUser(){
+        this.status = "BLOCKED";
+    }
+
+    public void setUserKey(Long userKey) {
+        this.userKey = userKey;
     }
 }

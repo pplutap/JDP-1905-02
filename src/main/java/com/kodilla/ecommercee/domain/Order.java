@@ -16,10 +16,7 @@ public class Order {
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    @OneToOne(cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER,
-            targetEntity = Cart.class,
-            mappedBy = "order")
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "CART_ID")
     private Cart cart;
 

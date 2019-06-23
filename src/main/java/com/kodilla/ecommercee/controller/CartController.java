@@ -1,11 +1,14 @@
 package com.kodilla.ecommercee.controller;
 
-import com.kodilla.ecommercee.domain.ProductDto;
-import org.springframework.web.bind.annotation.*;
 import com.kodilla.ecommercee.domain.CartProductAdderDto;
 import com.kodilla.ecommercee.domain.CartProductDeleterDto;
+import com.kodilla.ecommercee.domain.ProductDto;
+import com.kodilla.ecommercee.mapper.CartMapper;
+import com.kodilla.ecommercee.mapper.ProductMapper;
+import com.kodilla.ecommercee.service.CartService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -14,31 +17,40 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping("/superShop")
 public class CartController {
-    private static final ProductDto socks = new ProductDto("Sport socks", "Most breathable fabric.",9.99);
-    private static final ProductDto tshirt = new ProductDto("UV T-Shirt", "100% UV protection", 29.99);
+  
+    @Autowired
+    private CartService cartService;
+
+    @Autowired
+    private CartMapper cartMapper;
+
+    @Autowired
+    private ProductMapper productMapper;
+
 
     @PostMapping(path = "createEmptyCart")
-    public void createEmptyCart(){
-
+    public Long createEmptyCart(){
+        return cartService.createNewCart();
     }
 
     @GetMapping(path = "getProductsFromTheCart")
     public List<ProductDto> getProductsFromTheCart(@RequestParam Long cartId){
-        return Arrays.asList(socks,tshirt);
+        return productMapper.mapToProductDtoList(cartService.getProductsFromTheCart(cartId));
     }
 
     @PostMapping(path = "addProductsToTheCartSelectedById", consumes = APPLICATION_JSON_VALUE)
-    public void addProductsToTheCartSelectedById(@RequestBody CartProductAdderDto cartProductAdderDto){
-
+    public List<ProductDto> addProductsToTheCartSelectedById(@RequestBody CartProductAdderDto cartProductAdderDto){
+        return productMapper.mapToProductDtoList(cartService.addProductsToCart(cartMapper.mapToIdFromCartAdderDto(cartProductAdderDto)
+                , cartMapper.mapToProductsListFromCartAdderDto(cartProductAdderDto)));
     }
 
     @DeleteMapping(path = "deleteProductByIdInGivenCardById", consumes = APPLICATION_JSON_VALUE)
     public void deleteProductByIdInGivenCardById(@RequestBody CartProductDeleterDto cartProductDeleterDto){
-
+        cartService.deleteProductByIdInGivenCardById(cartProductDeleterDto.getId(), cartProductDeleterDto.getProductId());
     }
 
     @PutMapping(path = "placeOrderByCartId")
-    public void placeOrderByCartId(@RequestParam Long cartId){
-
+    public Long placeOrderByCartId(@RequestParam Long userId, @RequestParam Long cartId){
+        return cartService.createNewOrder(userId, cartId);
     }
 }
