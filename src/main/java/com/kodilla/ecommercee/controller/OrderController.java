@@ -2,7 +2,6 @@ package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.domain.OrderCreationDto;
 import com.kodilla.ecommercee.domain.OrderDto;
-import com.kodilla.ecommercee.domain.ProductDto;
 import com.kodilla.ecommercee.mapper.OrderMapper;
 import com.kodilla.ecommercee.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;

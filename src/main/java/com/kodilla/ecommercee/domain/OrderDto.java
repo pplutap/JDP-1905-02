@@ -7,6 +7,8 @@ public class OrderDto {
     private String user;
     private List<Long> cart;
 
+    public OrderDto(){}
+
     public OrderDto(Long id, String user, List<Long> cart) {
         this.id = id;
         this.user = user;
