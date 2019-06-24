@@ -1,43 +1,29 @@
 package com.kodilla.ecommercee.domain;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class OrderDto {
-    private Long Id;
-    private LocalDate created;
-    private boolean paid;
-    private boolean realised;
-    private List<ProductDto> products;
+    private Long id;
+    private String user;
+    private String orderProducts;
 
-    public OrderDto(Long id, int yearOfOrder, int monthOfOrder, int dayOfOrder, boolean paid, boolean realised, List<ProductDto> products) {
-        Id = id;
-        this.created = LocalDate.of(yearOfOrder, monthOfOrder, dayOfOrder);
-        this.paid = paid;
-        this.realised = realised;
-        this.products = products;
-    }
+    public OrderDto(){}
 
-    public OrderDto() {
+    public OrderDto(Long id, String user, String products) {
+        this.id = id;
+        this.user = user;
+        this.orderProducts = products;
     }
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
-    public LocalDate getCreated() {
-        return created;
+    public String getUser() {
+        return user;
     }
 
-    public boolean isPaid() {
-        return paid;
-    }
-
-    public boolean isRealised() {
-        return realised;
-    }
-
-    public List<ProductDto> getProducts() {
-        return products;
+    public String getOrderProducts() {
+        return orderProducts;
     }
 }

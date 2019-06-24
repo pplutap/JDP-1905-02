@@ -26,6 +26,7 @@ public class Group  {
     }
 
     public Group() {
+
     }
 
     public Long getId() {

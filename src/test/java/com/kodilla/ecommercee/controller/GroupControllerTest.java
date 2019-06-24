@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class GroupControllerTest {
 
     private final static Group group1 = new Group("testGroup");
-    private final static GroupDto groupDto1 = new GroupDto("testGroup");
+    private final static GroupDto groupDto1 = new GroupDto(1L,"testGroup");
     private static Gson gson = new Gson();
     private final static String jsonContent = gson.toJson(groupDto1);
 

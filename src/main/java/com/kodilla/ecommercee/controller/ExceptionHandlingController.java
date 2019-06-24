@@ -41,6 +41,5 @@ public class ExceptionHandlingController {
     public final String handleNoSuchElementException(NoSuchElementException e) {
         LOGGER.error(e.getMessage(), e);
         return "Object that you refer to does not exist. Check if provided data are correct.";
-
     }
 }

@@ -27,7 +27,6 @@ public class CartController {
     @Autowired
     private ProductMapper productMapper;
 
-
     @PostMapping(path = "createEmptyCart")
     public Long createEmptyCart(){
         return cartService.createNewCart();
