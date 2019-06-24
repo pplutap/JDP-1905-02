@@ -5,14 +5,14 @@ import java.util.List;
 public class OrderDto {
     private Long id;
     private String user;
-    private List<Long> cart;
+    private List<Long> products;
 
     public OrderDto(){}
 
-    public OrderDto(Long id, String user, List<Long> cart) {
+    public OrderDto(Long id, String user, List<Long> products) {
         this.id = id;
         this.user = user;
-        this.cart = cart;
+        this.products = products;
     }
 
     public Long getId() {
@@ -23,7 +23,7 @@ public class OrderDto {
         return user;
     }
 
-    public List<Long> getCart() {
-        return cart;
+    public List<Long> getProducts() {
+        return products;
     }
 }

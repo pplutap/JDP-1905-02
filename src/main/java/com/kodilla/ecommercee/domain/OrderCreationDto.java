@@ -4,6 +4,8 @@ public class OrderCreationDto {
     private Long userId;
     private Long cartId;
 
+    public OrderCreationDto(){}
+
     public OrderCreationDto(Long userId, Long cartId) {
         this.userId = userId;
         this.cartId = cartId;
