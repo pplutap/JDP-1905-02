@@ -4,7 +4,6 @@ import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.OrderDto;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
