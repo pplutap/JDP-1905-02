@@ -82,10 +82,4 @@ public class ProductControllerTest {
                 .content(jsonContent))
                 .andExpect(status().isOk());
     }
-
-    @Test
-    public void deleteProduct() throws Exception{
-
-    }
-
 }
