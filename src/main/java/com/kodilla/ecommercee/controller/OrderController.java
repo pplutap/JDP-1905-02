@@ -1,7 +1,11 @@
 package com.kodilla.ecommercee.controller;
 
+import com.kodilla.ecommercee.domain.OrderCreationDto;
 import com.kodilla.ecommercee.domain.OrderDto;
 import com.kodilla.ecommercee.domain.ProductDto;
+import com.kodilla.ecommercee.mapper.OrderMapper;
+import com.kodilla.ecommercee.service.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -13,35 +17,35 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping("/superShop")
 public class OrderController {
 
-    private static final ProductDto butter = new ProductDto("SuperButter", "Super Fat Butter.", 3.99, "28");
-    private static final ProductDto meal = new ProductDto("Mega Meal", "Epic meal moment.", 8.99, "34");
-    private static final ProductDto socks = new ProductDto("Sport socks", "Most breathable fabric.", 9.99, "5");
-    private static final ProductDto tshirt = new ProductDto("UV T-Shirt", "100% UV protection", 29.99, "5");
-    private static final OrderDto firstOrder = new OrderDto(1L, 2019, 05, 28, true, false, Arrays.asList(butter, meal));
-    private static final OrderDto secondOrder = new OrderDto(2L, 2019, 05, 31, false, false, Arrays.asList(socks, tshirt));
+    @Autowired
+    private OrderMapper orderMapper;
+
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping(path = "getOrders")
     public List<OrderDto> getOrders() {
-        return new ArrayList<>(Arrays.asList(firstOrder, secondOrder));
+        return orderMapper.mapToOrderDtoList(orderService.getAllOrders());
     }
 
     @PostMapping(path = "createOrder", consumes = APPLICATION_JSON_VALUE)
-    public void createOrder() {
+    public void createOrder(@RequestBody OrderCreationDto orderCreationDto) {
+        orderService.saveOrder(orderCreationDto);
     }
 
     @GetMapping(path = "getOrder")
     public OrderDto getOrder(@RequestParam Long orderId){
-        return new OrderDto(1L, 2019, 03, 03, true, true, new ArrayList<ProductDto>());
+        return orderMapper.mapToOrderDto(orderService.getOrder(orderId));
     }
 
     @PutMapping(path = "updateOrder", consumes = APPLICATION_JSON_VALUE)
-    public OrderDto updateOrder(@RequestBody OrderDto orderDto) {
-        return new OrderDto(1L, 2019, 03, 03, false, false, new ArrayList<ProductDto>());
+    public OrderDto updateOrder(@RequestBody OrderCreationDto orderCreationDto) {
+        return orderMapper.mapToOrderDto(orderService.saveOrder(orderCreationDto));
     }
 
     @DeleteMapping(path = "deleteOrder")
     public void deleteOrder(Long orderId){
+        orderService.deleteOrder(orderId);
     }
-
 }
 
