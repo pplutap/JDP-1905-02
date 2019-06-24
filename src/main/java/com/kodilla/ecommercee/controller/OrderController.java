@@ -22,27 +22,27 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @RequestMapping(method = RequestMethod.GET, value = "getOrders")
+    @GetMapping(path = "getOrders")
     public List<OrderDto> getOrders() {
         return orderMapper.mapToOrderDtoList(orderService.getAllOrders());
     }
-
-    @RequestMapping(method = RequestMethod.POST, value = "createOrder", consumes = APPLICATION_JSON_VALUE)
+      
+    @PostMapping(path = "createOrder", consumes = APPLICATION_JSON_VALUE)
     public void createOrder(@RequestBody OrderCreationDto orderCreationDto) {
         orderService.saveOrder(orderCreationDto);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "getOrder")
+    @GetMapping(path = "getOrder")
     public OrderDto getOrder(@RequestParam Long orderId){
         return orderMapper.mapToOrderDto(orderService.getOrder(orderId));
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "updateOrder", consumes = APPLICATION_JSON_VALUE)
-    public OrderDto updateOrder(@RequestBody OrderCreationDto orderCreationDto) {
+    @PutMapping(path = "updateOrder", consumes = APPLICATION_JSON_VALUE)
+    public OrderDto updateOrder(@RequestBody OrderDto orderDto) {
         return orderMapper.mapToOrderDto(orderService.saveOrder(orderCreationDto));
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "deleteOrder")
+    @DeleteMapping(path = "deleteOrder")
     public void deleteOrder(Long orderId){
         orderService.deleteOrder(orderId);
     }

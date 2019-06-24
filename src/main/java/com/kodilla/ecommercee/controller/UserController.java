@@ -26,18 +26,18 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
-    @RequestMapping(method = RequestMethod.POST, value = "createUser", consumes = APPLICATION_JSON_VALUE)
+    @PostMapping(path = "createUser", consumes = APPLICATION_JSON_VALUE)
     public void createUser(UserDto userDto) {
         service.saveUser(userMapper.mapToUser(userDto));
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "blockingUser")
+    @PutMapping(path = "blockingUser")
     public UserDto blockingUser(@RequestParam Long userId) {
         service.blockUser(userId);
         return userMapper.mapToUserDto(service.getUser(userId));
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "generateUserKey")
+    @PutMapping(path = "generateUserKey")
     public UserDto generatingKeyOfFourNumbersValidForOneHour(@RequestParam Long userId) {
         service.setUserKey(tokenService.generateRandomKey(), userId);
         return userMapper.mapToUserDto(service.getUser(userId));
