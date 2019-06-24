@@ -12,12 +12,12 @@ public class GroupMapper {
 
     public List<GroupDto> mapToGroupDtoList(final List<Group>groups){
         return groups.stream()
-                .map(g->new GroupDto(g.getName()))
+                .map(g->new GroupDto(g.getId(),g.getName()))
                 .collect(Collectors.toList());
     }
 
     public GroupDto mapToGroupDto(final Group group){
-        return new GroupDto(
+        return new GroupDto(group.getId(),
                 group.getName());
     }
 
